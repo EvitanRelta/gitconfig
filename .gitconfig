@@ -35,7 +35,6 @@
             git remote add origin $1;               \
             git fetch;                              \
             git checkout -t origin/master;          \
-        # Force flag overwrites conflicting files   \
         elif [ $# -eq 3 ] && [ $1 == "-f" ]; then   \
             mkdir -p $3;                            \
             cd $3;                                  \
