@@ -14,8 +14,16 @@
     rebun = "!cd "${GIT_PREFIX:-.}"; f() { GIT_SEQUENCE_EDITOR=\"perl -0777 -i -pe 's/^pick/$1/'\" git rebase -i $2; }; f"
     
     link = "!cd "${GIT_PREFIX:-.}"; f() {           \
-        git remote add origin $1;                   \
-        git push -u origin master;                  \
+        if [ $# -eq 1 ] && [ $1 != "-f" ]; then     \
+            git remote add origin $1;               \
+            git push -u origin master;              \
+        elif [ $# -eq 2 ] && [ $1 == "-f" ]; then   \
+            git remote add origin $2;               \
+            git remote set-url origin $2;           \
+            git push -uf origin master;             \
+        else                                        \
+            echo Invalid parameters;                \
+        fi;                                         \
     }; f"
     
     clone-nonempty = "!cd "${GIT_PREFIX:-.}"; f() { \
