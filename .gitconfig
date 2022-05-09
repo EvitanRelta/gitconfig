@@ -34,7 +34,7 @@
             git fetch;                              \
             git checkout -tf origin/master;         \
         else                                        \
-            echo Missing parameters;                \
+            echo Invalid parameters;                \
         fi;                                         \
     }; f"
     
