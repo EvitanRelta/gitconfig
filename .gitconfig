@@ -61,3 +61,9 @@
         git stash \"$@\" -um \"unstaged changes\";  \
         git stash pop -q \"stash@{1}\";             \
     }; f"
+
+    pull-all-branches = "!cd "${GIT_PREFIX:-.}"; f() {  \
+        for remote in `git branch -r`; do git branch --track ${remote#origin/} $remote; done;   \
+        git fetch --all;                                \
+        git pull --all;                                 \
+    }; f"
