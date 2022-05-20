@@ -172,3 +172,15 @@ for remote in `git branch -r`; do git branch --track ${remote#origin/} $remote; 
 git fetch --all
 git pull --all
 ```
+
+<br>
+
+### `git pull-force`
+
+Pulls and overwrite current local branch.
+
+```bash
+# Alias for:
+git fetch --all
+git reset --hard "origin/$(git branch --show-current)"
+```

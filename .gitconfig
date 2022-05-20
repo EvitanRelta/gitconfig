@@ -67,3 +67,8 @@
         git fetch --all;                                \
         git pull --all;                                 \
     }; f"
+    
+    pull-force = "!cd "${GIT_PREFIX:-.}"; f() {     \
+        git fetch --all;                            \
+        git reset --hard \"origin/$(git branch --show-current)\"; \
+    }; f"
