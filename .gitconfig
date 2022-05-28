@@ -53,12 +53,6 @@
         git stash -u \"$@\";                        \
         git stash pop --quiet \"stash@{1}\";        \
     }; f"
-    
-    stash-staged = "!cd "${GIT_PREFIX:-.}"; f() {   \
-        git stash-unstaged -q;                      \
-        git stash -u \"$@\";                        \
-        git stash pop -q \"stash@{1}\";             \
-    }; f"
 
     pull-all-branches = "!cd "${GIT_PREFIX:-.}"; f() {  \
         git fetch -p;                                   \
