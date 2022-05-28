@@ -4,7 +4,7 @@
 
 ```bash
 # Alias for:
-git add .
+git add -A
 git commit [flags/parameters]
 ```
 
@@ -14,7 +14,7 @@ git commit [flags/parameters]
 
 ```bash
 # Alias for:
-git add .
+git add -A
 git commit --amend --no-edit
 ```
 

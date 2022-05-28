@@ -4,8 +4,8 @@
 	email = shauntanzongzhi@gmail.com
 	name = EvitanRelta
 [alias]
-    cum = "!cd "${GIT_PREFIX:-.}"; f() { git add .; git commit \"$@\"; }; f"
-    cumane = "!cd "${GIT_PREFIX:-.}"; f() { git add .; git commit --amend --no-edit; }; f"
+    cum = "!cd "${GIT_PREFIX:-.}"; f() { git add -A; git commit \"$@\"; }; f"
+    cumane = "!cd "${GIT_PREFIX:-.}"; f() { git add -A; git commit --amend --no-edit; }; f"
     cane = commit --amend --no-edit
     undoc = reset --soft HEAD^
     stat = status
