@@ -10,7 +10,7 @@
     undoc = reset --soft HEAD^
     stat = status
     pop = stash pop
-    rebun = "!cd "${GIT_PREFIX:-.}"; f() { GIT_SEQUENCE_EDITOR=\"perl -0777 -i -pe 's/^pick/$1/'\" git rebase -i $2; }; f"
+    rebun = "!cd "${GIT_PREFIX:-.}"; f() { GIT_SEQUENCE_EDITOR=\"perl -0777 -i -pe 's/^pick/$1/'\" git rebase -i $2~; }; f"
 
     dump = "!cd "${GIT_PREFIX:-.}"; f() {           \
         if [ $# -eq 0 ]; then                       \

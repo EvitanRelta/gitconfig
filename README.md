@@ -65,7 +65,7 @@ Rebases a single commit without opening interactive editor.
 
 ```bash
 # Alias for:
-git rebase -i [commit_hash]
+git rebase -i [commit_hash]~
 # Then replacing the 'pick' of the oldest commit to [interactive_command]
 
 # Example ussage:
