@@ -6,10 +6,10 @@
 [alias]
     cum = "!cd "${GIT_PREFIX:-.}"; f() { git add .; git commit \"$@\"; }; f"
     cumane = "!cd "${GIT_PREFIX:-.}"; f() { git add .; git commit --amend --no-edit; }; f"
-    cane = "!cd "${GIT_PREFIX:-.}"; f() { git commit --amend --no-edit; }; f"
-    undoc = "!cd "${GIT_PREFIX:-.}"; f() { git reset --soft HEAD^; }; f"
-    stat = "!cd "${GIT_PREFIX:-.}"; f() { git status; }; f"
-    pop = "!cd "${GIT_PREFIX:-.}"; f() { git stash pop \"$@\"; }; f"
+    cane = commit --amend --no-edit
+    undoc = reset --soft HEAD^
+    stat = status
+    pop = stash pop
     rebun = "!cd "${GIT_PREFIX:-.}"; f() { GIT_SEQUENCE_EDITOR=\"perl -0777 -i -pe 's/^pick/$1/'\" git rebase -i $2; }; f"
 
     dump = "!cd "${GIT_PREFIX:-.}"; f() {           \
