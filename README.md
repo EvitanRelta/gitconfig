@@ -49,11 +49,11 @@ git status
 
 <br>
 
-### `git pop`
+### `git pop [flags/parameters]`
 
 ```bash
 # Alias for:
-git stash pop
+git stash pop [flags/parameters]
 ```
 
 <br>
