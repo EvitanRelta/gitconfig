@@ -48,17 +48,15 @@
         fi;                                         \
     }; f"
     
-    stash-staged = "!cd "${GIT_PREFIX:-.}"; f() {   \
+    stash-unstaged = "!cd "${GIT_PREFIX:-.}"; f() { \
         git commit -qm \"TEMP\";                    \
-        git stash -qu;                              \
+        git stash -u \"$@\";                        \
         git undoc;                                  \
-        git stash \"$@\" -um \"staged changes\";    \
-        git stash pop -q \"stash@{1}\";             \
     }; f"
     
-    stash-unstaged = "!cd "${GIT_PREFIX:-.}"; f() { \
-        git stash-staged -q;                        \
-        git stash \"$@\" -um \"unstaged changes\";  \
+    stash-staged = "!cd "${GIT_PREFIX:-.}"; f() {   \
+        git stash-unstaged -q;                      \
+        git stash -u \"$@\";                        \
         git stash pop -q \"stash@{1}\";             \
     }; f"
 

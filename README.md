@@ -132,29 +132,27 @@ git clone-nonempty -f https://github.com/EvitanRelta/my-repo .
 
 <br>
 
-### `git stash-staged`
+### `git stash-unstaged [flags/parameters]`
+
+Stashes unstaged (and untracked) changes, leaving behind staged changes.
+
+```bash
+# Alias for:
+git commit -qm "TEMP"
+git stash -u [flags/parameters]
+git undoc
+```
+
+<br>
+
+### `git stash-staged [flags/parameters]`
 
 Stashes staged changes, leaving behind unstaged changes.
 
 ```bash
 # Alias for:
-git commit -qm "TEMP"
-git stash -qu
-git reset --soft head^
-git stash -um "staged changes"
-git stash pop -q "stash@{1}"
-```
-
-<br>
-
-### `git stash-unstaged`
-
-Stashes unstaged changes, leaving behind staged changes.
-
-```bash
-# Alias for:
-git stash-staged -q;
-git stash -um "unstaged changes"
+git stash-unstaged -q
+git stash -u [flags/parameters]
 git stash pop -q "stash@{1}"
 ```
 
