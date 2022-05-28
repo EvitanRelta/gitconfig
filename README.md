@@ -168,7 +168,10 @@ Pulls all remote branches.
 
 ```bash
 # Alias for:
-for remote in `git branch -r | grep -v " -> "`; do git branch --track ${remote#origin/} $remote; done
+git fetch -p    # Update + prune remote branches
+for remote in `git branch -r | grep -v " -> "`; do
+    git branch --track ${remote#origin/} $remote
+done
 git fetch --all
 git pull --all
 ```
