@@ -29,18 +29,6 @@ git commit --amend --no-edit
 
 <br>
 
-### `git dump`
-
-Dumps any unstaged changes.
-
-```bash
-# Alias for:
-git restore .
-git clean -df
-```
-
-<br>
-
 ### `git undoc`
 
 Undo/Uncommit the last commit.
@@ -84,6 +72,25 @@ git rebase -i [commit_hash]
 git rebun edit HEAD~3
 git rebun e 2ea1622
 git rebun reword HEAD~4
+```
+
+<br>
+
+### `git dump [-f]`
+
+Dumps any unstaged changes.
+<br> _(Force flag dumps staged changes too)_
+
+```bash
+# Alias for (w/o force flag):
+git restore .
+git clean -df
+
+
+# Alias for (force flag):
+git reset
+git restore .
+git clean -df
 ```
 
 <br>
