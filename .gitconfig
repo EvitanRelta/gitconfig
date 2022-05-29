@@ -61,7 +61,7 @@
     }; f"
     
     stash-unstaged = "!cd "${GIT_PREFIX:-.}"; f() { \
-        git commit --quiet -m \"TEMP\";             \
+        git commit --quiet -m \"TEMP (staged changes)\";    \
         git stash -u \"$@\";                        \
         git undoc;                                  \
     }; f"
