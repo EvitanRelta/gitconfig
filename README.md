@@ -40,7 +40,7 @@ git reset --soft HEAD^
 
 <br>
 
-### `git stat`
+### `git st`
 
 ```bash
 # Alias for:
