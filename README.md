@@ -145,7 +145,7 @@ Stashes unstaged (and untracked) changes, leaving behind staged changes.
 
 ```bash
 # Alias for:
-git commit -qm "TEMP"
+git commit --quiet -m "TEMP"
 git stash -u [flags/parameters]
 git undoc
 ```
@@ -158,9 +158,9 @@ Stashes staged changes, leaving behind unstaged changes.
 
 ```bash
 # Alias for:
-git stash-unstaged -q
+git stash-unstaged --quiet
 git stash -u [flags/parameters]
-git stash pop -q "stash@{1}"
+git stash pop --quiet "stash@{1}"
 ```
 
 <br>

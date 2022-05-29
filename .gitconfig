@@ -61,15 +61,15 @@
     }; f"
     
     stash-unstaged = "!cd "${GIT_PREFIX:-.}"; f() { \
-        git commit -qm \"TEMP\";                    \
+        git commit --quiet -m \"TEMP\";             \
         git stash -u \"$@\";                        \
         git undoc;                                  \
     }; f"
     
     stash-staged = "!cd "${GIT_PREFIX:-.}"; f() {   \
-        git stash-unstaged -q;                      \
+        git stash-unstaged --quiet;                 \
         git stash -u \"$@\";                        \
-        git stash pop -q \"stash@{1}\";             \
+        git stash pop --quiet \"stash@{1}\";        \
     }; f"
 
     pull-all-branches = "!cd "${GIT_PREFIX:-.}"; f() {  \
