@@ -61,9 +61,9 @@
     }; f"
     
     stash-unstaged = "!cd "${GIT_PREFIX:-.}"; f() { \
-        git stash --quiet --staged;                 \
+        git commit -qm \"TEMP\";                    \
         git stash -u \"$@\";                        \
-        git stash pop --quiet \"stash@{1}\";        \
+        git undoc;                                  \
     }; f"
     
     stash-staged = "!cd "${GIT_PREFIX:-.}"; f() {   \
