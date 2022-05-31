@@ -76,6 +76,17 @@ git rebun reword HEAD~4
 
 <br>
 
+### `git git [commands/flags/parameters]`
+
+For when you accidentally type `git` twice.
+
+```bash
+# Alias for:
+git [commands/flags/parameters]
+```
+
+<br>
+
 ### `git dump [-f]`
 
 Dumps any unstaged changes.
