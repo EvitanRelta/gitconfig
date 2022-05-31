@@ -10,7 +10,7 @@
     undoc = reset --soft HEAD^
     st = status
     pop = stash pop
-    rebun = "!cd "${GIT_PREFIX:-.}"; f() { GIT_SEQUENCE_EDITOR=\"perl -0777 -i -pe 's/^pick/$1/'\" git rebase -i $2~; }; f"
+    rebun = "!cd "${GIT_PREFIX:-.}"; f() { GIT_SEQUENCE_EDITOR=\"perl -0777 -i -pe 's/^pick/$1/'\" git rebase -i \"$2\"~; }; f"
     git = "!cd "${GIT_PREFIX:-.}"; f() { git \"$@\"; }; f"
 
     dump = "!cd "${GIT_PREFIX:-.}"; f() {           \
@@ -28,12 +28,12 @@
     
     link = "!cd "${GIT_PREFIX:-.}"; f() {           \
         if [ $# -eq 1 ] && [ $1 != "-f" ]; then     \
-            git remote add origin $1;               \
-            git remote set-url origin $1;           \
+            git remote add origin \"$1\";           \
+            git remote set-url origin \"$1\";       \
             git push -u origin master;              \
         elif [ $# -eq 2 ] && [ $1 == "-f" ]; then   \
-            git remote add origin $2;               \
-            git remote set-url origin $2;           \
+            git remote add origin \"$2\";           \
+            git remote set-url origin \"$2\";       \
             git push -uf origin master;             \
         else                                        \
             echo Invalid parameters;                \
@@ -42,18 +42,18 @@
     
     clone-nonempty = "!cd "${GIT_PREFIX:-.}"; f() { \
         if [ $# -eq 2 ] && [ $1 != "-f" ]; then     \
-            mkdir -p $2;                            \
-            cd $2;                                  \
+            mkdir -p \"$2\";                        \
+            cd \"$2\";                              \
             git init;                               \
-            git remote add origin $1;               \
+            git remote add origin \"$1\";           \
             git fetch;                              \
             git checkout -t origin/master;          \
         elif [ $# -eq 3 ] && [ $1 == "-f" ]; then   \
-            mkdir -p $3;                            \
-            cd $3;                                  \
+            mkdir -p \"$3\";                        \
+            cd \"$3\";                              \
             rm -drf .git;                           \
             git init;                               \
-            git remote add origin $2;               \
+            git remote add origin \"$2\";           \
             git fetch;                              \
             git checkout -tf origin/master;         \
         else                                        \
