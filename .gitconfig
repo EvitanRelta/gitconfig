@@ -7,11 +7,12 @@
     cum = "!cd "${GIT_PREFIX:-.}"; f() { git add -A; git commit \"$@\"; }; f"
     cumane = "!cd "${GIT_PREFIX:-.}"; f() { git add -A; git commit --amend --no-edit; }; f"
     cane = commit --amend --no-edit
-    undoc = reset --soft HEAD~
     st = status
     pop = stash pop
     rebun = "!cd "${GIT_PREFIX:-.}"; f() { GIT_SEQUENCE_EDITOR=\"perl -0777 -i -pe 's/^pick/$1/'\" git rebase -i \"$2\"~; }; f"
     git = "!cd "${GIT_PREFIX:-.}"; f() { git \"$@\"; }; f"
+    
+    undoc = reset --soft HEAD~
 
     dump = "!cd "${GIT_PREFIX:-.}"; f() {           \
         if [ $# -eq 0 ]; then                       \

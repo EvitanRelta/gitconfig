@@ -29,17 +29,6 @@ git commit --amend --no-edit
 
 <br>
 
-### `git undoc`
-
-Undo/Uncommit the last commit.
-
-```bash
-# Alias for:
-git reset --soft HEAD~
-```
-
-<br>
-
 ### `git st`
 
 ```bash
@@ -83,6 +72,17 @@ For when you accidentally type `git` twice.
 ```bash
 # Alias for:
 git [commands/flags/parameters]
+```
+
+<br>
+
+### `git undoc`
+
+Undo/Uncommit the last commit.
+
+```bash
+# Alias for:
+git reset --soft HEAD~
 ```
 
 <br>
