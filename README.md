@@ -35,7 +35,7 @@ Undo/Uncommit the last commit.
 
 ```bash
 # Alias for:
-git reset --soft HEAD^
+git reset --soft HEAD~
 ```
 
 <br>
