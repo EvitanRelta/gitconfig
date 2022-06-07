@@ -76,13 +76,17 @@ git [commands/flags/parameters]
 
 <br>
 
-### `git undoc`
+### `git undoc [-f]`
 
-Undo/Uncommit the last commit.
+Undo/Uncommit the last commit, keeping the commit's changes as staged.
+<br> _(Force flag doesn't keep the commit's changes)_
 
 ```bash
 # Alias for:
 git reset --soft HEAD~
+
+# Alias for (force flag):
+git reset --hard HEAD~
 ```
 
 <br>
