@@ -182,7 +182,7 @@ git stash pop --quiet "stash@{1}"
 
 <br>
 
-### `git pull-all-branches`
+### `git pull-all`
 
 Pulls all remote branches.
 

@@ -82,7 +82,7 @@
         git stash pop --quiet \"stash@{1}\";        \
     }; f"
 
-    pull-all-branches = "!cd "${GIT_PREFIX:-.}"; f() {  \
+    pull-all = "!cd "${GIT_PREFIX:-.}"; f() {  \
         if [ -n \"$(git status --porcelain)\" ]; then   \
             echo \"error: There are local changes.\";   \
             echo \"Aborting...\";                       \
