@@ -186,15 +186,20 @@ git stash pop --quiet "stash@{1}"
 
 Pulls all remote branches.
 
-> Source: https://stackoverflow.com/questions/10312521/how-to-fetch-all-git-branches#answer-10312587
-
 ```bash
 # Alias for:
 git fetch -p    # Update + prune remote branches
-for remote in `git branch -r | grep -v " -> "`; do
-    git branch --track ${remote#origin/} $remote
+echo "From $(git remote get-url origin)"
+for remote in `git branch -r | grep -v \" -> \"`; do
+    branch=${remote#origin/}
+    branch_not_exists=$(git show-ref refs/heads/$branch)
+
+    git fetch --update-head-ok origin $branch:$branch 2>&1  # Pulls, allowing pulls to current branch
+        | grep -v "From"                                    # Removes repeated "From [REMOTE_URL]"
+
+    [ -z \"$branch_not_exists\" ]
+        && git branch --quiet -u $remote $branch            # Sets upstream as 'git fetch' doesn't
 done
-git pull --all
 ```
 
 <br>

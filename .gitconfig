@@ -83,9 +83,21 @@
     }; f"
 
     pull-all-branches = "!cd "${GIT_PREFIX:-.}"; f() {  \
-        git fetch -p;                                   \
-        for remote in `git branch -r | grep -v \" -> \"`; do git branch --track ${remote#origin/} $remote; done;   \
-        git pull --all;                                 \
+        if [ -n \"$(git status --porcelain)\" ]; then   \
+            echo \"error: There are local changes.\";   \
+            echo \"Aborting...\";                       \
+        else                                            \
+            git fetch -p;                                               \
+            echo \"From $(git remote get-url origin)\";                 \
+            for remote in `git branch -r | grep -v \" -> \"`; do        \
+                branch=${remote#origin/};                               \
+                branch_not_exists=$(git show-ref refs/heads/$branch);   \
+                git fetch --update-head-ok origin $branch:$branch 2>&1  \
+                    | grep -v \"From\";                                 \
+                [ -z \"$branch_not_exists\" ]                           \
+                    && git branch --quiet -u $remote $branch;           \
+            done;                                       \
+        fi;                                             \
     }; f"
     
     pull-force = "!cd "${GIT_PREFIX:-.}"; f() {     \
