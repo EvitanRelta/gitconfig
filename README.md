@@ -182,9 +182,10 @@ git stash pop --quiet "stash@{1}"
 
 <br>
 
-### `git pull-all`
+### `git pull-all [-s [ignore_branch_name] [ignore_branch_name] ...]`
 
 Pulls all remote branches.
+<br> `-s` skip-flag skips pulling `[ignore_branch_name]` remote branches.
 
 ```bash
 # Alias for:
@@ -203,6 +204,8 @@ for remote in `git branch -r | grep -v \" -> \"`; do
     [ -z \"$branch_not_exists\" ]
         && git branch --quiet -u $remote $branch    # Sets upstream, as 'git fetch' doesn't
 done
+
+# '-s' skip-flag implementation too complicated to show
 ```
 
 <br>

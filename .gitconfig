@@ -82,11 +82,11 @@
         git stash pop --quiet \"stash@{1}\";        \
     }; f"
 
-    pull-all = "!cd "${GIT_PREFIX:-.}"; f() {  \
-        if [ -n \"$(git status --porcelain)\" ]; then   \
-            echo \"error: There are local changes.\";   \
-            echo \"Aborting...\";                       \
-        else                                            \
+    pull-all = "!cd "${GIT_PREFIX:-.}"; f() {                           \
+        if [ -n \"$(git status --porcelain)\" ]; then                   \
+            echo \"error: There are local changes.\";                   \
+            echo \"Aborting...\";                                       \
+        elif [ $# -eq 0 ]; then                                         \
             git fetch -p;                                               \
             echo \"From $(git remote get-url origin)\";                 \
             for remote in `git branch -r | grep -v \" -> \"`; do        \
@@ -96,8 +96,27 @@
                     | grep -v \"From\";                                 \
                 [ -z \"$branch_not_exists\" ]                           \
                     && git branch --quiet -u $remote $branch;           \
-            done;                                       \
-        fi;                                             \
+            done;                                                       \
+        elif [ $# -gt 1 ] && [ $1 == "-s" ]; then                       \
+            git fetch -p;                                               \
+            echo \"From $(git remote get-url origin)\";                 \
+            for remote in `git branch -r | grep -v \" -> \"`; do        \
+                branch=${remote#origin/};                               \
+                for ignore_branch in \"$@\"; do                         \
+                    if [ \"$branch\" == \"$ignore_branch\" ]; then      \
+                        echo \"Skipped \\\"$branch\\\"\";               \
+                        continue 2;                                     \
+                    fi;                                                 \
+                done;                                                   \
+                branch_not_exists=$(git show-ref refs/heads/$branch);   \
+                git fetch --update-head-ok origin $branch:$branch 2>&1  \
+                    | grep -v \"From\";                                 \
+                [ -z \"$branch_not_exists\" ]                           \
+                    && git branch --quiet -u $remote $branch;           \
+            done;                                                       \
+        else                                                            \
+            echo Invalid parameters;                                    \
+        fi;                                                             \
     }; f"
     
     pull-force = "!cd "${GIT_PREFIX:-.}"; f() {     \
