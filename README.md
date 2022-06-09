@@ -194,11 +194,14 @@ for remote in `git branch -r | grep -v \" -> \"`; do
     branch=${remote#origin/}
     branch_not_exists=$(git show-ref refs/heads/$branch)
 
-    git fetch --update-head-ok origin $branch:$branch 2>&1  # Pulls, allowing pulls to current branch
-        | grep -v "From"                                    # Removes repeated "From [REMOTE_URL]"
+    git fetch
+        --update-head-ok            # Allows changes to current branch/HEAD
+        origin $branch:$branch      # Updates branch
+        2>&1                        # Fix 'fetch' not outputting to 'grep'
+        | grep -v "From"            # Removes repeated "From [REMOTE_URL]"
 
     [ -z \"$branch_not_exists\" ]
-        && git branch --quiet -u $remote $branch            # Sets upstream as 'git fetch' doesn't
+        && git branch --quiet -u $remote $branch    # Sets upstream, as 'git fetch' doesn't
 done
 ```
 
