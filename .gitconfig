@@ -131,3 +131,12 @@
         git merge --no-ff \"$branch\";          \
         git branch -d \"$branch\";              \
     }; f"
+    
+    branch-d-both = "!cd "${GIT_PREFIX:-.}"; f() {  \
+        if [ $# -eq 1 ]; then                       \
+            git branch -d \"$1\";                   \
+            git push -d origin \"$1\";              \
+        else                                        \
+            echo Invalid parameters;                \
+        fi;                                         \
+    }; f"
