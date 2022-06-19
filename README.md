@@ -230,3 +230,16 @@ Pulls and overwrite current local branch.
 git fetch --all
 git reset --hard "origin/$(git branch --show-current)"
 ```
+
+<br>
+
+### `git merge-this`
+
+Merge _(no fast-forward)_ current branch _(ie. `[branch_name]`)_ to master, and deletes it locally.
+
+```bash
+# Alias for:
+git checkout master
+git merge --no-ff [branch_name]
+git branch -d [branch_name]
+```
