@@ -76,6 +76,17 @@ git [commands/flags/parameters]
 
 <br>
 
+### `git current-branch`
+
+Gets current branch name. Mainly used for other aliases.
+
+```bash
+# Alias for:
+git rev-parse --abbrev-ref HEAD
+```
+
+<br>
+
 ### `git undoc [-f]`
 
 Undo/Uncommit the last commit, keeping the commit's changes as staged.

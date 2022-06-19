@@ -11,6 +11,7 @@
     pop = stash pop
     rebun = "!cd "${GIT_PREFIX:-.}"; f() { GIT_SEQUENCE_EDITOR=\"perl -0777 -i -pe 's/^pick/$1/'\" git rebase -i \"$2\"~; }; f"
     git = "!cd "${GIT_PREFIX:-.}"; f() { git \"$@\"; }; f"
+    current-branch = rev-parse --abbrev-ref HEAD
 
     undoc = "!cd "${GIT_PREFIX:-.}"; f() {           \
         if [ $# -eq 0 ]; then                       \
