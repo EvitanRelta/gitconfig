@@ -120,8 +120,8 @@
         fi;                                                             \
     }; f"
     
-    pull-force = "!cd "${GIT_PREFIX:-.}"; f() {     \
-        git fetch --all;                            \
+    pull-force = "!cd "${GIT_PREFIX:-.}"; f() { \
+        git fetch;                              \
         git reset --hard \"origin/$(git branch --show-current)\"; \
     }; f"
 
