@@ -90,7 +90,7 @@
         elif [ $# -eq 0 ]; then                                         \
             git fetch -p;                                               \
             echo \"From $(git remote get-url origin)\";                 \
-            for remote in `git branch -r | grep -v \" -> \"`; do        \
+            for remote in `git branch -r | grep -v \" -> \" | grep \"origin/\"`; do \
                 branch=${remote#origin/};                               \
                 branch_not_exists=$(git show-ref refs/heads/$branch);   \
                 git fetch --update-head-ok origin $branch:$branch 2>&1  \
@@ -101,7 +101,7 @@
         elif [ $# -gt 1 ] && [ $1 == "-s" ]; then                       \
             git fetch -p;                                               \
             echo \"From $(git remote get-url origin)\";                 \
-            for remote in `git branch -r | grep -v \" -> \"`; do        \
+            for remote in `git branch -r | grep -v \" -> \" | grep \"origin/\"`; do \
                 branch=${remote#origin/};                               \
                 for ignore_branch in \"$@\"; do                         \
                     if [ \"$branch\" == \"$ignore_branch\" ]; then      \

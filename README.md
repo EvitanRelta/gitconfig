@@ -202,7 +202,7 @@ Pulls all remote branches.
 # Alias for:
 git fetch -p    # Update + prune remote branches
 echo "From $(git remote get-url origin)"
-for remote in `git branch -r | grep -v \" -> \"`; do
+for remote in `git branch -r | grep -v " -> " | grep "origin/"`; do
     branch=${remote#origin/}
     branch_not_exists=$(git show-ref refs/heads/$branch)
 
