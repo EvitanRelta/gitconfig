@@ -268,4 +268,5 @@ Gets the deleted `[branch_name]` from the merge commit's subject.
 ```bash
 # Alias for:
 git checkout -b [branch_name] [merge_commit_hash]^2
+git checkout -   # Go back to previous branch
 ```
