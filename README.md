@@ -76,7 +76,7 @@ git [commands/flags/parameters]
 
 <br>
 
-### `git current-branch`
+### `git get-current-branch`
 
 Gets current branch name. Mainly used for other aliases.
 
