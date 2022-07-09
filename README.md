@@ -270,3 +270,18 @@ Gets the deleted `[branch_name]` from the merge commit's subject.
 git checkout -b [branch_name] [merge_commit_hash]^2
 git checkout -   # Go back to previous branch
 ```
+
+<br>
+
+### `git unmerge`
+
+Must be on a merge commit.
+<br>Checks out to the deleted branch of the commit, and undo the merge commit.
+<br>_(effectively undoing `git merge-this`)_
+
+```bash
+# Alias for:
+git get-deleted-branch HEAD
+git undoc -f
+git checkout -
+```
