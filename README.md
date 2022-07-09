@@ -87,6 +87,22 @@ git rev-parse --abbrev-ref HEAD
 
 <br>
 
+### `git branch-exists [branch]`
+
+Checks if branch `[branch]` exists.
+<br>_(Used in conditional statements for other aliases)_
+
+```bash
+# Alias for:
+git show-ref --quiet "refs/heads/[branch]"
+
+# Usage:
+if git branch-exists my-branch; then
+...
+```
+
+<br>
+
 ### `git undoc [-f]`
 
 Undo/Uncommit the last commit, keeping the commit's changes as staged.
