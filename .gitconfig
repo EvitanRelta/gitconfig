@@ -12,6 +12,7 @@
     rebun = "!cd "${GIT_PREFIX:-.}"; f() { GIT_SEQUENCE_EDITOR=\"perl -0777 -i -pe 's/^pick/$1/'\" git rebase -i \"$2\"~; }; f"
     git = "!cd "${GIT_PREFIX:-.}"; f() { git \"$@\"; }; f"
     get-current-branch = rev-parse --abbrev-ref HEAD
+    get-current-hash = rev-parse HEAD
     branch-exists = "!cd "${GIT_PREFIX:-.}"; f() { git show-ref --quiet \"refs/heads/$1\"; }; f"
     is-ancestor = merge-base --is-ancestor
 

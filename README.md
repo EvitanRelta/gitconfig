@@ -88,6 +88,18 @@ git rev-parse --abbrev-ref HEAD
 
 <br>
 
+### `git get-current-hash`
+
+Gets current commit hash.
+<br>_(Used in other aliases)_
+
+```bash
+# Alias for:
+git rev-parse HEAD
+```
+
+<br>
+
 ### `git branch-exists [branch]`
 
 Checks if branch `[branch]` exists.
