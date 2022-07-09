@@ -285,3 +285,39 @@ git get-deleted-branch HEAD
 git undoc -f
 git checkout -
 ```
+
+<br>
+
+### `git con`
+
+Continues the rebase/cherry-pick/merge/etc. command.
+<br>Infers the command from `git status`.
+
+```bash
+# Alias for:
+git [rebase/cherry-pick/merge/etc.] --continue
+```
+
+<br>
+
+### `git cone`
+
+Continues the rebase/cherry-pick/merge/etc. command and prevent editing the commit message _(similar to `--no-edit` flag for `git commit`)_.
+<br>Infers the command from `git status`.
+
+```bash
+# Alias for:
+git -c core.editor=true [rebase/cherry-pick/merge/etc.] --continue
+```
+
+<br>
+
+### `git ab`
+
+Aborts the rebase/cherry-pick/merge/etc. command.
+<br>Infers the command from `git status`.
+
+```bash
+# Alias for:
+git [rebase/cherry-pick/merge/etc.] --abort
+```

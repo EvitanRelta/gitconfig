@@ -162,3 +162,30 @@
             echo HEAD is not a merge commit;    \
         fi;                                     \
     }; f"
+
+    con = "!cd "${GIT_PREFIX:-.}"; f() {        \
+        continue_command=\"$(git status | grep -oP '(?i)git [a-z0-9-]+ --continue')\";  \
+        if [ -n \"$continue_command\" ]; then   \
+            eval \"$continue_command\";         \
+        else                                    \
+            echo No continue command found;     \
+        fi;                                     \
+    }; f"
+
+    cone = "!cd "${GIT_PREFIX:-.}"; f() {        \
+        continue_command_wo_git=\"$(git status | grep -oP '(?i)(?<=git )[a-z0-9-]+ --continue')\";  \
+        if [ -n \"$continue_command_wo_git\" ]; then   \
+            eval \"git -c core.editor=true $continue_command_wo_git\";         \
+        else                                    \
+            echo No continue command found;     \
+        fi;                                     \
+    }; f"
+
+    ab = "!cd "${GIT_PREFIX:-.}"; f() {     \
+        abort_command=\"$(git status | grep -oP '(?i)git [a-z0-9-]+ --abort')\";  \
+        if [ -n \"$abort_command\" ]; then  \
+            eval \"$abort_command\";        \
+        else                                \
+            echo No abort command found;    \
+        fi;                                 \
+    }; f"
