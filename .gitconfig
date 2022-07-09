@@ -13,6 +13,7 @@
     git = "!cd "${GIT_PREFIX:-.}"; f() { git \"$@\"; }; f"
     current-branch = rev-parse --abbrev-ref HEAD
     branch-exists = "!cd "${GIT_PREFIX:-.}"; f() { git show-ref --quiet \"refs/heads/$1\"; }; f"
+    is-ancestor = merge-base --is-ancestor
 
     undoc = "!cd "${GIT_PREFIX:-.}"; f() {           \
         if [ $# -eq 0 ]; then                       \
