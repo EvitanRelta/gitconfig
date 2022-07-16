@@ -132,6 +132,45 @@ if git branch-exists origin/master HEAD; then
 
 <br>
 
+### `git is-rebasing`
+
+Checks if is currently rebasing, by checking if the `.git/REBASE_HEAD` file exists.
+<br>_(Used in `git get-in-prog-cmd`)_
+
+```bash
+# Usage:
+if git is-rebasing; then
+...
+```
+
+<br>
+
+### `git is-merging`
+
+Checks if is currently merging, by checking if the `.git/MERGE_HEAD` file exists.
+<br>_(Used in `git get-in-prog-cmd`)_
+
+```bash
+# Usage:
+if git is-merging; then
+...
+```
+
+<br>
+
+### `git is-cherry-picking`
+
+Checks if is currently cherry-picking, by checking if the `.git/CHERRY_PICK_HEAD` file exists.
+<br>_(Used in `git get-in-prog-cmd`)_
+
+```bash
+# Usage:
+if git is-cherry-picking; then
+...
+```
+
+<br>
+
 ### `git undoc [-f]`
 
 Undo/Uncommit the last commit, keeping the commit's changes as staged.
@@ -333,14 +372,37 @@ git checkout -
 
 <br>
 
-### `git con`
+### `git get-in-prog-cmd`
 
-Continues the rebase/cherry-pick/merge/etc. command.
-<br>Infers the command from `git status`.
+If is currently rebasing, merging or cherry-picking, outputs `rebase`, `merge` or `cherry-pick` respectively.
+If not, exit with error, and output "Not currently rebasing, merging or cherry-picking" to `stderr`.
+<br>_(Used to infer the continue/abort/etc. commands for rebasing/merging/cherry-picking/etc)_
 
 ```bash
 # Alias for:
-git [rebase/cherry-pick/merge/etc.] --continue
+if git is-rebasing; then
+    echo rebase
+elif git is-cherry-picking; then
+    echo cherry-pick
+elif git is-merging; then
+    echo merge
+else
+    >&2 echo "Not currently rebasing, merging or cherry-picking"
+    exit 1
+fi
+```
+
+<br>
+
+### `git con`
+
+Continues the rebase/cherry-pick/merge/etc. command.
+
+```bash
+# Alias for:
+in_prog_cmd="$(git get-in-prog-cmd)"
+    && echo "Continuing $in_prog_cmd..."
+    && eval "git $in_prog_cmd --continue"
 ```
 
 <br>
@@ -348,11 +410,12 @@ git [rebase/cherry-pick/merge/etc.] --continue
 ### `git cone`
 
 Continues the rebase/cherry-pick/merge/etc. command and prevent editing the commit message _(similar to `--no-edit` flag for `git commit`)_.
-<br>Infers the command from `git status`.
 
 ```bash
 # Alias for:
-git -c core.editor=true [rebase/cherry-pick/merge/etc.] --continue
+in_prog_cmd="$(git get-in-prog-cmd)"
+    && echo "Continuing $in_prog_cmd (no edit)..."
+    && eval "git -c core.editor=true $in_prog_cmd --continue"
 ```
 
 <br>
@@ -360,9 +423,10 @@ git -c core.editor=true [rebase/cherry-pick/merge/etc.] --continue
 ### `git ab`
 
 Aborts the rebase/cherry-pick/merge/etc. command.
-<br>Infers the command from `git status`.
 
 ```bash
 # Alias for:
-git [rebase/cherry-pick/merge/etc.] --abort
+in_prog_cmd="$(git get-in-prog-cmd)"
+    && echo "Aborting $in_prog_cmd..."
+    && eval "git $in_prog_cmd --abort"
 ```

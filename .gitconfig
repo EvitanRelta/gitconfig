@@ -15,6 +15,9 @@
     get-current-hash = rev-parse HEAD
     branch-exists = "!cd "${GIT_PREFIX:-.}"; f() { git show-ref --quiet \"refs/heads/$1\"; }; f"
     is-ancestor = merge-base --is-ancestor
+    is-rebasing = "!f() { test -e .git/REBASE_HEAD; }; f"
+    is-merging = "!f() { test -e .git/MERGE_HEAD; }; f"
+    is-cherry-picking = "!f() { test -e .git/CHERRY_PICK_HEAD; }; f"
 
     undoc = "!cd "${GIT_PREFIX:-.}"; f() {           \
         if [ $# -eq 0 ]; then                       \
@@ -164,29 +167,33 @@
         fi;                                     \
     }; f"
 
-    con = "!cd "${GIT_PREFIX:-.}"; f() {        \
-        continue_command=\"$(git status | grep -oP '(?i)git [a-z0-9-]+ --continue')\";  \
-        if [ -n \"$continue_command\" ]; then   \
-            eval \"$continue_command\";         \
-        else                                    \
-            echo No continue command found;     \
-        fi;                                     \
+    get-in-prog-cmd = "!cd "${GIT_PREFIX:-.}"; f() {\
+        if git is-rebasing; then                    \
+            echo rebase;                            \
+        elif git is-cherry-picking; then            \
+            echo cherry-pick;                       \
+        elif git is-merging; then                   \
+            echo merge;                             \
+        else                                        \
+            >&2 echo \"Not currently rebasing, merging or cherry-picking\"; \
+            exit 1;                                 \
+        fi;                                         \
     }; f"
 
-    cone = "!cd "${GIT_PREFIX:-.}"; f() {        \
-        continue_command_wo_git=\"$(git status | grep -oP '(?i)(?<=git )[a-z0-9-]+ --continue')\";  \
-        if [ -n \"$continue_command_wo_git\" ]; then   \
-            eval \"git -c core.editor=true $continue_command_wo_git\";         \
-        else                                    \
-            echo No continue command found;     \
-        fi;                                     \
+    con = "!cd "${GIT_PREFIX:-.}"; f() {            \
+        in_prog_cmd=\"$(git get-in-prog-cmd)\"      \
+            && echo \"Continuing $in_prog_cmd...\"  \
+            && eval \"git $in_prog_cmd --continue\";\
     }; f"
 
-    ab = "!cd "${GIT_PREFIX:-.}"; f() {     \
-        abort_command=\"$(git status | grep -oP '(?i)git [a-z0-9-]+ --abort')\";  \
-        if [ -n \"$abort_command\" ]; then  \
-            eval \"$abort_command\";        \
-        else                                \
-            echo No abort command found;    \
-        fi;                                 \
+    cone = "!cd "${GIT_PREFIX:-.}"; f() {           \
+        in_prog_cmd=\"$(git get-in-prog-cmd)\"      \
+            && echo \"Continuing $in_prog_cmd (no edit)...\"                \
+            && eval \"git -c core.editor=true $in_prog_cmd --continue\";    \
+    }; f"
+
+    ab = "!cd "${GIT_PREFIX:-.}"; f() {             \
+        in_prog_cmd=\"$(git get-in-prog-cmd)\"      \
+            && echo \"Aborting $in_prog_cmd...\"    \
+            && eval \"git $in_prog_cmd --abort\";   \
     }; f"
