@@ -134,7 +134,7 @@ if git branch-exists origin/master HEAD; then
 
 ### `git is-rebasing`
 
-Checks if is currently rebasing, by checking if the `.git/REBASE_HEAD` file exists.
+Checks if is currently rebasing, by checking if the `.git/rebase-merge` folder exists.
 <br>_(Used in `git get-in-prog-cmd`)_
 
 ```bash
