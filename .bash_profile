@@ -1,5 +1,8 @@
 stty -ixon -ixoff
 
+bind -r '\C-S'
+bind -r '\C-R'
+
 bind 'TAB:menu-complete'
 bind '"\e[Z":menu-complete-backward'
 bind "set show-all-if-ambiguous on"
