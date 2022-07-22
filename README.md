@@ -430,3 +430,16 @@ in_prog_cmd="$(git get-in-prog-cmd)"
     && echo "Aborting $in_prog_cmd..."
     && eval "git $in_prog_cmd --abort"
 ```
+
+<br>
+
+### `git rebase-from [new_base] [inclusive_from_commit]`
+
+Rebase the current branch onto `[new_base]` starting from (and including) `[inclusive_from_commit]`.
+<br>_(similar to `git rebase [new_base]` but only picking commits from `HEAD` up to `[inclusive_from_commit]`)_
+
+```bash
+# Alias for:
+current_branch=$(git get-current-branch)
+git rebase --onto [new_base] [inclusive_from_commit]~ $current_branch
+```

@@ -130,7 +130,7 @@
     }; f"
 
     merge-this = "!cd "${GIT_PREFIX:-.}"; f() { \
-        branch=$(git get-current-branch);           \
+        branch=$(git get-current-branch);       \
         git checkout master;                    \
         git merge --no-ff \"$branch\";          \
         git branch -d \"$branch\";              \
@@ -196,4 +196,13 @@
         in_prog_cmd=\"$(git get-in-prog-cmd)\"      \
             && echo \"Aborting $in_prog_cmd...\"    \
             && eval \"git $in_prog_cmd --abort\";   \
+    }; f"
+
+    rebase-from = "!cd "${GIT_PREFIX:-.}"; f() {    \
+        if [ $# -ne 2 ]; then                       \
+            echo Invalid parameters;                \
+            exit 1;                                 \
+        fi;                                         \
+        current_branch=$(git get-current-branch);   \
+        git rebase --onto \"$1\" \"$2~\" $current_branch;   \
     }; f"
