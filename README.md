@@ -286,18 +286,16 @@ Pulls all remote branches.
 # Alias for:
 git fetch -p    # Update + prune remote branches
 echo "From $(git remote get-url origin)"
-for remote in `git branch -r | grep -v " -> " | grep "origin/"`; do
-    branch=${remote#origin/}
-    branch_not_exists=$(git show-ref refs/heads/$branch)
+for remote_branch in `git branch -r | grep -v " -> " | grep "origin/"`; do
+    branch=${remote_branch#origin/}
 
     git fetch
         --update-head-ok            # Allows changes to current branch/HEAD
-        origin $branch:$branch      # Updates branch
+        origin "$branch:$branch"    # Updates branch
         2>&1                        # Fix 'fetch' not outputting to 'grep'
         | grep -v "From"            # Removes repeated "From [REMOTE_URL]"
 
-    [ -z \"$branch_not_exists\" ]
-        && git branch --quiet -u $remote $branch    # Sets upstream, as 'git fetch' doesn't
+    git branch --quiet -u "$remote_branch" "$branch"    # Sets upstream, as 'git fetch' doesn't
 done
 
 # '-s' skip-flag implementation too complicated to show
