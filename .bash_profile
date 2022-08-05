@@ -7,8 +7,8 @@ bind 'TAB:menu-complete'
 bind '"\e[Z":menu-complete-backward'
 bind "set show-all-if-ambiguous on"
 
-bind '"\e[A":history-search-backward'
-bind '"\e[B":history-search-forward'
+bind '"\e[1;2A":history-search-backward'
+bind '"\e[1;2B":history-search-forward'
 
 _git_branch_d_both () {
     _git_branch
