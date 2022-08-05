@@ -17,3 +17,7 @@ _git_branch_d_both () {
 _git_pull_all () {
     _git_branch
 }
+
+_git_rebase_from () {
+    _git_branch
+}
