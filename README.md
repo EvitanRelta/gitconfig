@@ -443,3 +443,15 @@ Rebase the current branch onto `[new_base]` starting from (and including) `[incl
 current_branch=$(git get-current-branch)
 git rebase --onto [new_base] [inclusive_from_commit]~ $current_branch
 ```
+
+<br>
+
+### `git replace-with [branch]`
+
+Resets the head of current branch to that of `[branch]`, then force deletes `[branch]`.
+
+```bash
+# Alias for:
+git reset --hard [branch]
+git branch -D [branch]
+```

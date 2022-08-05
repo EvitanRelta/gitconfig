@@ -21,3 +21,7 @@ _git_pull_all () {
 _git_rebase_from () {
     _git_branch
 }
+
+_git_replace_with () {
+    _git_branch
+}

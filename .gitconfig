@@ -206,3 +206,11 @@
         current_branch=$(git get-current-branch);   \
         git rebase --onto \"$1\" \"$2~\" $current_branch;   \
     }; f"
+    
+    replace-with = "!cd "${GIT_PREFIX:-.}"; f() {   \
+        if [ $# -ne 1 ]; then                       \
+            echo Invalid parameters;                \
+        fi;                                         \
+        git reset --hard \"$1\"                     \
+            && git branch -D \"$1\";                \
+    }; f"
