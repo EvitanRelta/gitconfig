@@ -323,7 +323,7 @@ Merge _(no fast-forward)_ current branch _(ie. `[branch_name]`)_ to master, and 
 # Alias for:
 git checkout master
 git merge --no-ff [branch_name]
-git branch -d [branch_name]
+git branch -D [branch_name]
 ```
 
 <br>

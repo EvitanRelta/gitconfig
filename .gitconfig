@@ -131,7 +131,7 @@
         branch=$(git get-current-branch)        \
             && git checkout master              \
             && git merge --no-ff \"$branch\"    \
-            && git branch -d \"$branch\";       \
+            && git branch -D \"$branch\";       \
     }; f"
     
     branch-d-both = "!cd "${GIT_PREFIX:-.}"; f() {  \
