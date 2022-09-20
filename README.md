@@ -407,7 +407,7 @@ in_prog_cmd="$(git get-in-prog-cmd)"
 
 ### `git cone`
 
-Continues the rebase/cherry-pick/merge/etc. command and prevent editing the commit message _(similar to `--no-edit` flag for `git commit`)_.
+Continues the rebase/cherry-pick/merge/etc. command while preventing the prompt for editing the commit message _(similar to `--no-edit` flag for `git commit`)_.
 
 ```bash
 # Alias for:
