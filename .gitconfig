@@ -189,6 +189,8 @@
             && echo \"Continuing $in_prog_cmd (no edit)...\"                \
             && eval \"git -c core.editor=true $in_prog_cmd --continue\";    \
     }; f"
+    
+    conea = "!cd "${GIT_PREFIX:-.}"; f() { git add -A && git cone; }; f"
 
     ab = "!cd "${GIT_PREFIX:-.}"; f() {             \
         in_prog_cmd=\"$(git get-in-prog-cmd)\"      \
