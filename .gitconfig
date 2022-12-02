@@ -219,3 +219,7 @@
         git -c rebase.instructionFormat='%s%nexec GIT_COMMITTER_DATE=\"%cD\" git commit --amend --no-edit' rebase $@; \
     }; f"
     
+    spoof-dates = "!cd "${GIT_PREFIX:-.}"; f() {   \
+        GIT_COMMITTER_DATE=\"$2\" git commit --date=\"$1\" --amend --no-edit; \
+    }; f"
+    
