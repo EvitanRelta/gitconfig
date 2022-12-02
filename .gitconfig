@@ -214,3 +214,8 @@
         git reset --hard \"$1\"                     \
             && git branch -D \"$1\";                \
     }; f"
+
+    rebase-preserve = "!cd "${GIT_PREFIX:-.}"; f() {   \
+        git -c rebase.instructionFormat='%s%nexec GIT_COMMITTER_DATE=\"%cD\" git commit --amend --no-edit' rebase $@; \
+    }; f"
+    

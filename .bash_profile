@@ -25,3 +25,7 @@ _git_rebase_from () {
 _git_replace_with () {
     _git_branch
 }
+
+_git_rebase_preserve () {
+    _git_branch
+}
