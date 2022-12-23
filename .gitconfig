@@ -3,6 +3,8 @@
 [user]
 	email = shauntanzongzhi@gmail.com
 	name = EvitanRelta
+[rebase]
+	autosquash = true
 [alias]
     cum = "!cd "${GIT_PREFIX:-.}"; f() { git add -A && git commit \"$@\"; }; f"
     cumane = "!cd "${GIT_PREFIX:-.}"; f() { git add -A && git commit --amend --no-edit; }; f"
