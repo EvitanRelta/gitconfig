@@ -458,7 +458,7 @@ in_prog_cmd="$(git get-in-prog-cmd)"
 
 <br>
 
-### `git rebase-from [new_base] [inclusive_from_commit]`
+### `git rebase-from [inclusive_from_commit] [new_base]`
 
 Rebase the current branch onto `[new_base]` starting from (and including) `[inclusive_from_commit]`.
 <br>_(similar to `git rebase [new_base]` but only picking commits from `HEAD` up to `[inclusive_from_commit]`)_
