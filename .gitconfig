@@ -22,6 +22,14 @@
     is-merging = "!f() { test -e .git/MERGE_HEAD; }; f"
     is-cherry-picking = "!f() { test -e .git/CHERRY_PICK_HEAD; }; f"
 
+    re = "!cd "${GIT_PREFIX:-.}"; f() {   \
+        if [[ $* == *-i* ]]; then                   \
+            git rebase $@;                          \
+        else                                        \
+            GIT_SEQUENCE_EDITOR=: git rebase -i $@; \
+        fi;                                         \
+    }; f"
+
     undoc = "!cd "${GIT_PREFIX:-.}"; f() {           \
         if [ $# -eq 0 ]; then                       \
             git reset --soft HEAD~;                 \
@@ -225,4 +233,3 @@
     spoof-dates = "!cd "${GIT_PREFIX:-.}"; f() {   \
         GIT_COMMITTER_DATE=\"$2\" git commit --date=\"$1\" --amend --no-edit; \
     }; f"
-    

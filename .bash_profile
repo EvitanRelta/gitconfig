@@ -29,3 +29,7 @@ _git_replace_with () {
 _git_rebase_preserve () {
     _git_branch
 }
+
+_git_re() {
+    _git_rebase
+}
