@@ -215,7 +215,7 @@
             exit 1;                                 \
         fi;                                         \
         current_branch=$(git get-current-branch)   \
-            && git rebase --onto \"$2\" \"$1~\" $current_branch; \
+            && git re --onto \"$2\" \"$1~\" $current_branch; \
     }; f"
     
     replace-with = "!cd "${GIT_PREFIX:-.}"; f() {   \
