@@ -27,7 +27,7 @@ _git_replace_with () {
 }
 
 _git_rebase_preserve () {
-    _git_branch
+    _git_rebase
 }
 
 _git_re() {
