@@ -208,7 +208,7 @@ Undo/Uncommit the last commit, keeping the commit's changes as staged.
 <br> _(Force flag doesn't keep the commit's changes)_
 
 ```bash
-# Alias for:
+# Alias for (w/o force flag):
 git reset --soft HEAD~
 
 # Alias for (force flag):
@@ -271,7 +271,7 @@ git remote add origin [github_repo_url]
 git fetch
 git checkout -t origin/master
 
-# Alias for (w/o force flag):
+# Alias for (force flag):
 # Force overwrite any conflicting files
 ...
 git checkout -tf origin/master
