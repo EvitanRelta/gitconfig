@@ -33,3 +33,7 @@ _git_rebase_preserve () {
 _git_re() {
     _git_rebase
 }
+
+_git_cum() {
+    _git_commit
+}
