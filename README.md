@@ -428,10 +428,10 @@ If not, exit with error, and output "Not currently rebasing, merging or cherry-p
 # Alias for:
 if git is-rebasing; then
     echo rebase
-elif git is-cherry-picking; then
-    echo cherry-pick
 elif git is-merging; then
     echo merge
+elif git is-cherry-picking; then
+    echo cherry-pick
 else
     >&2 echo "Not currently rebasing, merging or cherry-picking"
     exit 1
@@ -442,7 +442,7 @@ fi
 
 ### `git con`
 
-Continues the rebase/cherry-pick/merge/etc. command.
+Continues the current rebase/merge/cherry-pick command.
 
 ```bash
 # Alias for:
@@ -455,7 +455,7 @@ in_prog_cmd="$(git get-in-prog-cmd)"
 
 ### `git cone`
 
-Continues the rebase/cherry-pick/merge/etc. command while preventing the prompt for editing the commit message _(similar to `--no-edit` flag for `git commit`)_.
+Continues the current rebase/merge/cherry-pick command while preventing the prompt for editing the commit message _(similar to `--no-edit` flag for `git commit`)_.
 
 ```bash
 # Alias for:
@@ -468,7 +468,7 @@ in_prog_cmd="$(git get-in-prog-cmd)"
 
 ### `git conea`
 
-Adds all unstaged changes, then continues the rebase/cherry-pick/merge/etc. command while preventing the prompt for editing the commit message.
+Adds all unstaged changes, then continues the current rebase/merge/cherry-pick command while preventing the prompt for editing the commit message.
 
 ```bash
 # Alias for:
@@ -480,7 +480,7 @@ git cone
 
 ### `git ab`
 
-Aborts the rebase/cherry-pick/merge/etc. command.
+Aborts the current rebase/merge/cherry-pick command.
 
 ```bash
 # Alias for:

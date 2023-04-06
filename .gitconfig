@@ -180,10 +180,10 @@
     get-in-prog-cmd = "!cd "${GIT_PREFIX:-.}"; f() {\
         if git is-rebasing; then                    \
             echo rebase;                            \
-        elif git is-cherry-picking; then            \
-            echo cherry-pick;                       \
         elif git is-merging; then                   \
             echo merge;                             \
+        elif git is-cherry-picking; then            \
+            echo cherry-pick;                       \
         else                                        \
             >&2 echo \"Not currently rebasing, merging or cherry-picking\"; \
             exit 1;                                 \
