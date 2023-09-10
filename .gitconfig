@@ -8,7 +8,7 @@
 	autosquash = true
 [alias]
     cum = "!~/.git-aliases/cum.sh"
-    cumane = "!cd "${GIT_PREFIX:-.}"; f() { git add -A && git commit --amend --no-edit; }; f"
+    cumane = "!~/.git-aliases/cumane.sh"
     cane = commit --amend --no-edit
     st = status
     pop = stash pop

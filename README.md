@@ -1,15 +1,5 @@
 ## Git Aliases
 
-### `git cumane`
-
-```bash
-# Alias for:
-git add -A
-git commit --amend --no-edit
-```
-
-<br>
-
 ### `git cane`
 
 ```bash
