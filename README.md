@@ -1,14 +1,5 @@
 ## Git Aliases
 
-### `git st`
-
-```bash
-# Alias for:
-git status
-```
-
-<br>
-
 ### `git rebun [interactve_command] [commit_hash]`
 
 Rebases a single commit _(with `--rebase-merges` flag)_ without opening interactive editor.
