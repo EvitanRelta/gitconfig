@@ -12,7 +12,7 @@
     cane = "!~/.git-aliases/cane.sh"
     st = "!~/.git-aliases/st.sh"
     pop = "!~/.git-aliases/pop.sh"
-    rebun = "!cd "${GIT_PREFIX:-.}"; f() { GIT_SEQUENCE_EDITOR=\"perl -0777 -i -pe 's/pick/$1/'\" git rebase -i --rebase-merges \"$2\"~; }; f"
+    rebun = "!~/.git-aliases/rebun.sh"
     addn = "!cd "${GIT_PREFIX:-.}"; f() { git add -A && git reset $@; }; f"
     git = "!cd "${GIT_PREFIX:-.}"; f() { git \"$@\"; }; f"
     get-current-branch = rev-parse --abbrev-ref HEAD
