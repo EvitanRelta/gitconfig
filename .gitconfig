@@ -9,7 +9,7 @@
 [alias]
     cum = "!~/.git-aliases/cum.sh"
     cumane = "!~/.git-aliases/cumane.sh"
-    cane = commit --amend --no-edit
+    cane = "!~/.git-aliases/cane.sh"
     st = status
     pop = stash pop
     rebun = "!cd "${GIT_PREFIX:-.}"; f() { GIT_SEQUENCE_EDITOR=\"perl -0777 -i -pe 's/pick/$1/'\" git rebase -i --rebase-merges \"$2\"~; }; f"
