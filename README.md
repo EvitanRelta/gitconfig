@@ -1,16 +1,5 @@
 ## Git Aliases
 
-### `git git [commands/flags/parameters]`
-
-For when you accidentally type `git` twice.
-
-```bash
-# Alias for:
-git [commands/flags/parameters]
-```
-
-<br>
-
 ### `git get-current-branch`
 
 Gets current branch name.

@@ -14,7 +14,7 @@
     pop = "!~/.git-aliases/pop.sh"
     rebun = "!~/.git-aliases/rebun.sh"
     addn = "!~/.git-aliases/addn.sh"
-    git = "!cd "${GIT_PREFIX:-.}"; f() { git \"$@\"; }; f"
+    git = "!~/.git-aliases/git.sh"
     get-current-branch = rev-parse --abbrev-ref HEAD
     get-current-hash = rev-parse HEAD
     branch-exists = "!cd "${GIT_PREFIX:-.}"; f() { git show-ref --quiet \"refs/heads/$1\"; }; f"
