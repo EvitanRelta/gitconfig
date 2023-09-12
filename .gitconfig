@@ -13,7 +13,7 @@
     st = "!~/.git-aliases/st.sh"
     pop = "!~/.git-aliases/pop.sh"
     rebun = "!~/.git-aliases/rebun.sh"
-    addn = "!cd "${GIT_PREFIX:-.}"; f() { git add -A && git reset $@; }; f"
+    addn = "!~/.git-aliases/addn.sh"
     git = "!cd "${GIT_PREFIX:-.}"; f() { git \"$@\"; }; f"
     get-current-branch = rev-parse --abbrev-ref HEAD
     get-current-hash = rev-parse HEAD
