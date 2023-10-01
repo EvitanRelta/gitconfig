@@ -7,14 +7,14 @@
 [rebase]
 	autosquash = true
 [alias]
-    cum = "!~/.git-aliases/cum.sh"
-    cumane = "!~/.git-aliases/cumane.sh"
-    cane = "!~/.git-aliases/cane.sh"
-    st = "!~/.git-aliases/st.sh"
-    pop = "!~/.git-aliases/pop.sh"
-    rebun = "!~/.git-aliases/rebun.sh"
-    addn = "!~/.git-aliases/addn.sh"
-    git = "!~/.git-aliases/git.sh"
+    cum = "!~/.git-aliases/cum/script.sh"
+    cumane = "!~/.git-aliases/cumane/script.sh"
+    cane = "!~/.git-aliases/cane/script.sh"
+    st = "!~/.git-aliases/st/script.sh"
+    pop = "!~/.git-aliases/pop/script.sh"
+    rebun = "!~/.git-aliases/rebun/script.sh"
+    addn = "!~/.git-aliases/addn/script.sh"
+    git = "!~/.git-aliases/git/script.sh"
     get-current-branch = rev-parse --abbrev-ref HEAD
     get-current-hash = rev-parse HEAD
     branch-exists = "!cd "${GIT_PREFIX:-.}"; f() { git show-ref --quiet \"refs/heads/$1\"; }; f"
