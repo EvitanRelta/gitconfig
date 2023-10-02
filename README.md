@@ -1,17 +1,5 @@
 ## Git Aliases
 
-### `git get-current-hash`
-
-Gets current commit hash.
-<br>_(Used in other aliases)_
-
-```bash
-# Alias for:
-git rev-parse HEAD
-```
-
-<br>
-
 ### `git get-deleted-branch [merge_commit_hash]`
 
 Checks out a locally-deleted branch.
