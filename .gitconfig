@@ -27,15 +27,7 @@
 
     re = "!~/.git-aliases/re/script.sh"
 
-    undoc = "!cd "${GIT_PREFIX:-.}"; f() {           \
-        if [ $# -eq 0 ]; then                       \
-            git reset --soft HEAD~;                 \
-        elif [ $# -eq 1 ] && [ $1 == "-f" ]; then   \
-            git reset --hard HEAD~;                 \
-        else                                        \
-            echo Invalid parameters;                \
-        fi;                                         \
-    }; f"
+    undoc = "!~/.git-aliases/undoc/script.sh"
 
     dump = "!~/.git-aliases/dump/script.sh"
     

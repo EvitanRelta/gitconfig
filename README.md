@@ -125,21 +125,6 @@ if git has-unmerged; then
 
 <br>
 
-### `git undoc [-f]`
-
-Undo/Uncommit the last commit, keeping the commit's changes as staged.
-<br> _(Force flag doesn't keep the commit's changes)_
-
-```bash
-# Alias for (w/o force flag):
-git reset --soft HEAD~
-
-# Alias for (force flag):
-git reset --hard HEAD~
-```
-
-<br>
-
 ### `git link [-f] [github_repo_url]`
 
 Links local repo to `[github_repo_url]`, by setting remote `origin` to url and set-upstream push.
