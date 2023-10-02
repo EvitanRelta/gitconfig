@@ -35,11 +35,7 @@
     
     clone-nonempty = "!~/.git-aliases/clone-nonempty/script.sh"
     
-    stash-unstaged = "!cd "${GIT_PREFIX:-.}"; f() {     \
-        git commit --quiet -m \"TEMP (staged changes)\" \
-            && git stash -u \"$@\"                      \
-            && git undoc;                               \
-    }; f"
+    stash-unstaged = "!~/.git-aliases/stash-unstaged/script.sh"
     
     stash-staged = "!cd "${GIT_PREFIX:-.}"; f() {   \
         git stash-unstaged --quiet                  \
