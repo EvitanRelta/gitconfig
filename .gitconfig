@@ -55,11 +55,7 @@
 
     con = "!~/.git-aliases/con_/script.sh"  # Suffixed with "_" as Windows folder name can't be "con".
 
-    cone = "!cd "${GIT_PREFIX:-.}"; f() {           \
-        in_prog_cmd=\"$(git get-in-prog-cmd)\"      \
-            && echo \"Continuing $in_prog_cmd (no edit)...\"                \
-            && eval \"git -c core.editor=true $in_prog_cmd --continue\";    \
-    }; f"
+    cone = "!~/.git-aliases/cone/script.sh"
     
     conea = "!cd "${GIT_PREFIX:-.}"; f() { git add -A && git cone; }; f"
 
