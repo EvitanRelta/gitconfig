@@ -57,7 +57,7 @@
 
     cone = "!~/.git-aliases/cone/script.sh"
     
-    conea = "!cd "${GIT_PREFIX:-.}"; f() { git add -A && git cone; }; f"
+    conea = "!~/.git-aliases/conea/script.sh"
 
     ab = "!~/.git-aliases/ab/script.sh"
 
