@@ -103,9 +103,7 @@
     
     replace-with = "!~/.git-aliases/replace-with/script.sh"
 
-    rebase-preserve = "!cd "${GIT_PREFIX:-.}"; f() {   \
-        git -c rebase.instructionFormat='%s%nexec GIT_COMMITTER_DATE=\"%cD\" git commit --amend --no-edit' rebase $@; \
-    }; f"
+    rebase-preserve = "!~/.git-aliases/rebase-preserve/script.sh"
     
     spoof-dates = "!cd "${GIT_PREFIX:-.}"; f() {   \
         GIT_COMMITTER_DATE=\"$2\" git commit --date=\"$1\" --amend --no-edit; \
