@@ -25,13 +25,7 @@
     is-reverting = "!f() { test -e .git/REVERT_HEAD; }; f"
     has-unmerged = "!f() { git ls-files --unmerged | grep -q .; }; f"
 
-    re = "!cd "${GIT_PREFIX:-.}"; f() {   \
-        if [[ $* == *-i* ]]; then                   \
-            git rebase $@;                          \
-        else                                        \
-            GIT_SEQUENCE_EDITOR=: git rebase -i $@; \
-        fi;                                         \
-    }; f"
+    re = "!~/.git-aliases/re/script.sh"
 
     undoc = "!cd "${GIT_PREFIX:-.}"; f() {           \
         if [ $# -eq 0 ]; then                       \
