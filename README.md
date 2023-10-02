@@ -9,16 +9,3 @@ Adds all unstaged changes, then continues the current rebase/merge/cherry-pick/r
 git add -A
 git cone
 ```
-
-<br>
-
-### `git ab`
-
-Aborts the current rebase/merge/cherry-pick/revert command.
-
-```bash
-# Alias for:
-in_prog_cmd="$(git get-in-prog-cmd)"
-    && echo "Aborting $in_prog_cmd..."
-    && eval "git $in_prog_cmd --abort"
-```

@@ -59,15 +59,7 @@
     
     conea = "!cd "${GIT_PREFIX:-.}"; f() { git add -A && git cone; }; f"
 
-    ab = "!cd "${GIT_PREFIX:-.}"; f() {             \
-        in_prog_cmd=\"$(git get-in-prog-cmd)\"      \
-            && echo \"Aborting $in_prog_cmd...\"    \
-            && eval \"git $in_prog_cmd --abort\"    \
-            || git has-unmerged                     \
-            && echo \"...but has unmerged paths\"   \
-            && echo \"Resetting unmerged paths...\" \
-            && git reset --merge;                   \
-    }; f"
+    ab = "!~/.git-aliases/ab/script.sh"
 
     rebase-from = "!~/.git-aliases/rebase-from/script.sh"
     
