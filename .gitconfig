@@ -101,13 +101,7 @@
 
     rebase-from = "!~/.git-aliases/rebase-from/script.sh"
     
-    replace-with = "!cd "${GIT_PREFIX:-.}"; f() {   \
-        if [ $# -ne 1 ]; then                       \
-            echo Invalid parameters;                \
-        fi;                                         \
-        git reset --hard \"$1\"                     \
-            && git branch -D \"$1\";                \
-    }; f"
+    replace-with = "!~/.git-aliases/replace-with/script.sh"
 
     rebase-preserve = "!cd "${GIT_PREFIX:-.}"; f() {   \
         git -c rebase.instructionFormat='%s%nexec GIT_COMMITTER_DATE=\"%cD\" git commit --amend --no-edit' rebase $@; \

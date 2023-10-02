@@ -215,18 +215,6 @@ in_prog_cmd="$(git get-in-prog-cmd)"
 
 <br>
 
-### `git replace-with [branch]`
-
-Resets the head of current branch to that of `[branch]`, then force deletes `[branch]`.
-
-```bash
-# Alias for:
-git reset --hard [branch]
-git branch -D [branch]
-```
-
-<br>
-
 ### `git rebase-preserve [same-options-as-rebase]`
 
 Exactly the same as `rebase`, but preserves the author & committer dates of commits.
