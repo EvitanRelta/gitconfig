@@ -125,18 +125,6 @@ if git has-unmerged; then
 
 <br>
 
-### `git pull-force`
-
-Pulls and overwrite current local branch.
-
-```bash
-# Alias for:
-git fetch
-git reset --hard "origin/$(git branch --show-current)"
-```
-
-<br>
-
 ### `git merge-this`
 
 Merge _(no fast-forward)_ current branch _(ie. `[branch_name]`)_ to master, and deletes it locally.

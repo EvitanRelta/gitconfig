@@ -41,10 +41,7 @@
 
     pull-all = "!~/.git-aliases/pull-all/script.sh"
     
-    pull-force = "!cd "${GIT_PREFIX:-.}"; f() { \
-        git fetch                               \
-            && git reset --hard \"origin/$(git branch --show-current)\"; \
-    }; f"
+    pull-force = "!~/.git-aliases/pull-force/script.sh"
 
     merge-this = "!cd "${GIT_PREFIX:-.}"; f() { \
         branch=$(git get-current-branch)        \
