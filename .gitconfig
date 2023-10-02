@@ -51,20 +51,7 @@
 
     unmerge = "!~/.git-aliases/unmerge/script.sh"
 
-    get-in-prog-cmd = "!cd "${GIT_PREFIX:-.}"; f() {\
-        if git is-rebasing; then                    \
-            echo rebase;                            \
-        elif git is-merging; then                   \
-            echo merge;                             \
-        elif git is-cherry-picking; then            \
-            echo cherry-pick;                       \
-        elif git is-reverting; then                 \
-            echo revert;                            \
-        else                                        \
-            >&2 echo \"Not currently rebasing, merging, cherry-picking nor revert\"; \
-            exit 1;                                 \
-        fi;                                         \
-    }; f"
+    get-in-prog-cmd = "!~/.git-aliases/.helper_functions/get-in-prog-cmd/script.sh"
 
     con = "!cd "${GIT_PREFIX:-.}"; f() {            \
         in_prog_cmd=\"$(git get-in-prog-cmd)\"      \
