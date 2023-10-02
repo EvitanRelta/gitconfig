@@ -125,19 +125,6 @@ if git has-unmerged; then
 
 <br>
 
-### `git merge-this`
-
-Merge _(no fast-forward)_ current branch _(ie. `[branch_name]`)_ to master, and deletes it locally.
-
-```bash
-# Alias for:
-git checkout master
-git merge --no-ff [branch_name]
-git branch -D [branch_name]
-```
-
-<br>
-
 ### `git branch-d-both [branch_name]`
 
 Deletes branch both locally and on remote.

@@ -43,12 +43,7 @@
     
     pull-force = "!~/.git-aliases/pull-force/script.sh"
 
-    merge-this = "!cd "${GIT_PREFIX:-.}"; f() { \
-        branch=$(git get-current-branch)        \
-            && git checkout master              \
-            && git merge --no-ff \"$branch\"    \
-            && git branch -D \"$branch\";       \
-    }; f"
+    merge-this = "!~/.git-aliases/merge-this/script.sh"
     
     branch-d-both = "!cd "${GIT_PREFIX:-.}"; f() {  \
         if [ $# -eq 1 ]; then                       \
