@@ -99,14 +99,7 @@
             && git reset --merge;                   \
     }; f"
 
-    rebase-from = "!cd "${GIT_PREFIX:-.}"; f() {    \
-        if [ $# -ne 2 ]; then                       \
-            echo Invalid parameters;                \
-            exit 1;                                 \
-        fi;                                         \
-        current_branch=$(git get-current-branch)   \
-            && git re --onto \"$2\" \"$1~\" $current_branch; \
-    }; f"
+    rebase-from = "!~/.git-aliases/rebase-from/script.sh"
     
     replace-with = "!cd "${GIT_PREFIX:-.}"; f() {   \
         if [ $# -ne 1 ]; then                       \
