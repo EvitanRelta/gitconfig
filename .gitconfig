@@ -15,7 +15,7 @@
     rebun = "!~/.git-aliases/rebun/script.sh"
     addn = "!~/.git-aliases/addn/script.sh"
     git = "!~/.git-aliases/git/script.sh"
-    get-current-branch = rev-parse --abbrev-ref HEAD
+    get-current-branch = "!~/.git-aliases/.helper_functions/get-current-branch/script.sh"
     get-current-hash = rev-parse HEAD
     branch-exists = "!~/.git-aliases/.helper_functions/branch-exists/script.sh"
     is-ancestor = "!~/.git-aliases/.helper_functions/is-ancestor/script.sh"
