@@ -19,7 +19,7 @@
     get-current-hash = rev-parse HEAD
     branch-exists = "!cd "${GIT_PREFIX:-.}"; f() { git show-ref --quiet \"refs/heads/$1\"; }; f"
     is-ancestor = merge-base --is-ancestor
-    is-rebasing = "!f() { test -d .git/rebase-merge; }; f"
+    is-rebasing = "!~/.git-aliases/.helper_functions/is-rebasing/script.sh"
     is-merging = "!f() { test -e .git/MERGE_HEAD; }; f"
     is-cherry-picking = "!f() { test -e .git/CHERRY_PICK_HEAD; }; f"
     is-reverting = "!f() { test -e .git/REVERT_HEAD; }; f"
