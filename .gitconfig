@@ -105,6 +105,4 @@
 
     rebase-preserve = "!~/.git-aliases/rebase-preserve/script.sh"
     
-    spoof-dates = "!cd "${GIT_PREFIX:-.}"; f() {   \
-        GIT_COMMITTER_DATE=\"$2\" git commit --date=\"$1\" --amend --no-edit; \
-    }; f"
+    spoof-dates = "!~/.git-aliases/spoof-dates/script.sh"
