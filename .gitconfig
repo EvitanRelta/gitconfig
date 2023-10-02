@@ -53,11 +53,7 @@
 
     get-in-prog-cmd = "!~/.git-aliases/.helper_functions/get-in-prog-cmd/script.sh"
 
-    con = "!cd "${GIT_PREFIX:-.}"; f() {            \
-        in_prog_cmd=\"$(git get-in-prog-cmd)\"      \
-            && echo \"Continuing $in_prog_cmd...\"  \
-            && eval \"git $in_prog_cmd --continue\";\
-    }; f"
+    con = "!~/.git-aliases/con_/script.sh"  # Suffixed with "_" as Windows folder name can't be "con".
 
     cone = "!cd "${GIT_PREFIX:-.}"; f() {           \
         in_prog_cmd=\"$(git get-in-prog-cmd)\"      \
