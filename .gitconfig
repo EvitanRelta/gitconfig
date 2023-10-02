@@ -22,7 +22,7 @@
     is-rebasing = "!~/.git-aliases/.helper_functions/is-rebasing/script.sh"
     is-merging = "!~/.git-aliases/.helper_functions/is-merging/script.sh"
     is-cherry-picking = "!~/.git-aliases/.helper_functions/is-cherry-picking/script.sh"
-    is-reverting = "!f() { test -e .git/REVERT_HEAD; }; f"
+    is-reverting = "!~/.git-aliases/.helper_functions/is-reverting/script.sh"
     has-unmerged = "!f() { git ls-files --unmerged | grep -q .; }; f"
 
     re = "!~/.git-aliases/re/script.sh"
