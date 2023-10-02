@@ -20,7 +20,7 @@
     branch-exists = "!cd "${GIT_PREFIX:-.}"; f() { git show-ref --quiet \"refs/heads/$1\"; }; f"
     is-ancestor = merge-base --is-ancestor
     is-rebasing = "!~/.git-aliases/.helper_functions/is-rebasing/script.sh"
-    is-merging = "!f() { test -e .git/MERGE_HEAD; }; f"
+    is-merging = "!~/.git-aliases/.helper_functions/is-merging/script.sh"
     is-cherry-picking = "!f() { test -e .git/CHERRY_PICK_HEAD; }; f"
     is-reverting = "!f() { test -e .git/REVERT_HEAD; }; f"
     has-unmerged = "!f() { git ls-files --unmerged | grep -q .; }; f"
