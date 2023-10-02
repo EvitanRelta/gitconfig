@@ -37,11 +37,7 @@
     
     stash-unstaged = "!~/.git-aliases/stash-unstaged/script.sh"
     
-    stash-staged = "!cd "${GIT_PREFIX:-.}"; f() {   \
-        git stash-unstaged --quiet                  \
-            && git stash -u \"$@\"                  \
-            && git stash pop --quiet \"stash@{1}\"; \
-    }; f"
+    stash-staged = "!~/.git-aliases/stash-staged/script.sh"
 
     pull-all = "!~/.git-aliases/pull-all/script.sh"
     

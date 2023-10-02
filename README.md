@@ -125,19 +125,6 @@ if git has-unmerged; then
 
 <br>
 
-### `git stash-staged [flags/parameters]`
-
-Stashes staged changes, leaving behind unstaged changes.
-
-```bash
-# Alias for:
-git stash-unstaged --quiet
-git stash -u [flags/parameters]
-git stash pop --quiet "stash@{1}"
-```
-
-<br>
-
 ### `git pull-force`
 
 Pulls and overwrite current local branch.
