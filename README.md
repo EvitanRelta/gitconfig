@@ -140,21 +140,6 @@ git checkout -   # Go back to previous branch
 
 <br>
 
-### `git unmerge`
-
-Must be on a merge commit.
-<br>Checks out to the deleted branch of the commit, and undo the merge commit.
-<br>_(effectively undoing `git merge-this`)_
-
-```bash
-# Alias for:
-git get-deleted-branch HEAD
-git undoc -f
-git checkout -
-```
-
-<br>
-
 ### `git get-in-prog-cmd`
 
 If is currently rebasing, merging, cherry-picking or reverting, outputs `rebase`, `merge`, `cherry-pick` or `revert` respectively.
