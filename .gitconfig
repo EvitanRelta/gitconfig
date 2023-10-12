@@ -1,5 +1,6 @@
 [core]
 	editor = \"$LOCALAPPDATA\\Programs\\Microsoft VS Code\\bin\\code\" --wait
+	autocrlf = true
 [user]
 	email = shauntanzongzhi@gmail.com
 	name = EvitanRelta
