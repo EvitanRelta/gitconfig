@@ -3,5 +3,5 @@
 !.gitconfig
 !.bash_profile
 !README.md
-!.git-aliases
-!.git-aliases/**
+!.git_aliases
+!.git_aliases/**
