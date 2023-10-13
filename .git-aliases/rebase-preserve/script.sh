@@ -1,4 +1,5 @@
 #!/bin/sh
-. ~/.git-aliases/_common.sh
+aliases_root_dir="$(dirname "$0")/.."
+source "$aliases_root_dir/_common.sh"
 
 git -c rebase.instructionFormat='%s%nexec GIT_COMMITTER_DATE="%cD" git commit --amend --no-edit' rebase $@

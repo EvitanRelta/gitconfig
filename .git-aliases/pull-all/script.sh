@@ -1,5 +1,6 @@
 #!/bin/sh
-. ~/.git-aliases/_common.sh
+aliases_root_dir="$(dirname "$0")/.."
+source "$aliases_root_dir/_common.sh"
 
 if [ -n "$(git status --porcelain)" ]; then
     echo "error: There are local changes."

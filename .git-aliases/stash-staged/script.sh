@@ -1,5 +1,6 @@
 #!/bin/sh
-. ~/.git-aliases/_common.sh
+aliases_root_dir="$(dirname "$0")/.."
+source "$aliases_root_dir/_common.sh"
 
 git stash-unstaged --quiet &&
     git stash -u "$@" &&
