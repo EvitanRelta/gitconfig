@@ -1,6 +1,7 @@
 ### `git cone`
 
-Continues the current rebase/merge/cherry-pick/revert command while preventing the prompt for editing the commit message _(similar to `--no-edit` flag for `git commit`)_.
+Continues the current rebase/merge/cherry-pick/revert command while preventing the prompt for editing the commit message.
+<br>_(similar to `--no-edit` flag for `git commit`)_
 
 ```bash
 # Alias for:
