@@ -1,9 +1,12 @@
 #!/bin/sh
 
-# Change to the GIT_PREFIX directory or current directory if GIT_PREFIX is not set
-cd "${GIT_PREFIX:-.}"
+# Check if `EXEC_IN_REPO_ROOT` is not set to true
+if [ "${EXEC_IN_REPO_ROOT}" != "true" ]; then
+    # Change to the `GIT_PREFIX` directory or current directory if `GIT_PREFIX` is not set
+    cd "${GIT_PREFIX:-.}"
+fi
 
-# Check if the --docs flag is provided in any position
+# Check if the `--docs` flag is provided in any position
 for arg in "$@"; do
     if [ "$arg" = "--docs" ]; then
         # Display the documentation for the alias
