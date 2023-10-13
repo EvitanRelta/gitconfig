@@ -7,238 +7,45 @@
 [rebase]
 	autosquash = true
 [alias]
-    cum = "!cd "${GIT_PREFIX:-.}"; f() { git add -A && git commit \"$@\"; }; f"
-    cumane = "!cd "${GIT_PREFIX:-.}"; f() { git add -A && git commit --amend --no-edit; }; f"
-    cane = commit --amend --no-edit
-    st = status
-    pop = stash pop
-    rebun = "!cd "${GIT_PREFIX:-.}"; f() { GIT_SEQUENCE_EDITOR=\"perl -0777 -i -pe 's/pick/$1/'\" git rebase -i --rebase-merges \"$2\"~; }; f"
-    addn = "!cd "${GIT_PREFIX:-.}"; f() { git add -A && git reset $@; }; f"
-    git = "!cd "${GIT_PREFIX:-.}"; f() { git \"$@\"; }; f"
-    get-current-branch = rev-parse --abbrev-ref HEAD
-    get-current-hash = rev-parse HEAD
-    branch-exists = "!cd "${GIT_PREFIX:-.}"; f() { git show-ref --quiet \"refs/heads/$1\"; }; f"
-    is-ancestor = merge-base --is-ancestor
-    is-rebasing = "!f() { test -d .git/rebase-merge; }; f"
-    is-merging = "!f() { test -e .git/MERGE_HEAD; }; f"
-    is-cherry-picking = "!f() { test -e .git/CHERRY_PICK_HEAD; }; f"
-    is-reverting = "!f() { test -e .git/REVERT_HEAD; }; f"
-    has-unmerged = "!f() { git ls-files --unmerged | grep -q .; }; f"
+    ab = "!./.git_aliases/ab/script.sh"
+    addn = "!./.git_aliases/addn/script.sh"
+    branch-d-both = "!./.git_aliases/branch-d-both/script.sh"
+    cane = "!./.git_aliases/cane/script.sh"
+    clone-nonempty = "!./.git_aliases/clone-nonempty/script.sh"
+    con = "!./.git_aliases/con_/script.sh"  # Suffixed with "_" as Windows folder name can't be "con".
+    cone = "!./.git_aliases/cone/script.sh"
+    conea = "!./.git_aliases/conea/script.sh"
+    cum = "!./.git_aliases/cum/script.sh"
+    cumane = "!./.git_aliases/cumane/script.sh"
+    dump = "!./.git_aliases/dump/script.sh"
+    git = "!./.git_aliases/git/script.sh"
+    link = "!./.git_aliases/link/script.sh"
+    merge-this = "!./.git_aliases/merge-this/script.sh"
+    pop = "!./.git_aliases/pop/script.sh"
+    pull-all = "!./.git_aliases/pull-all/script.sh"
+    pull-force = "!./.git_aliases/pull-force/script.sh"
+    re = "!./.git_aliases/re/script.sh"
+    rebase-from = "!./.git_aliases/rebase-from/script.sh"
+    rebase-preserve = "!./.git_aliases/rebase-preserve/script.sh"
+    rebun = "!./.git_aliases/rebun/script.sh"
+    replace-with = "!./.git_aliases/replace-with/script.sh"
+    spoof-dates = "!./.git_aliases/spoof-dates/script.sh"
+    st = "!./.git_aliases/st/script.sh"
+    stash-staged = "!./.git_aliases/stash-staged/script.sh"
+    stash-unstaged = "!./.git_aliases/stash-unstaged/script.sh"
+    undoc = "!./.git_aliases/undoc/script.sh"
+    unmerge = "!./.git_aliases/unmerge/script.sh"
 
-    re = "!cd "${GIT_PREFIX:-.}"; f() {   \
-        if [[ $* == *-i* ]]; then                   \
-            git rebase $@;                          \
-        else                                        \
-            GIT_SEQUENCE_EDITOR=: git rebase -i $@; \
-        fi;                                         \
-    }; f"
 
-    undoc = "!cd "${GIT_PREFIX:-.}"; f() {           \
-        if [ $# -eq 0 ]; then                       \
-            git reset --soft HEAD~;                 \
-        elif [ $# -eq 1 ] && [ $1 == "-f" ]; then   \
-            git reset --hard HEAD~;                 \
-        else                                        \
-            echo Invalid parameters;                \
-        fi;                                         \
-    }; f"
-
-    dump = "!cd "${GIT_PREFIX:-.}"; f() {           \
-        if [ $# -eq 0 ]; then                       \
-            git restore :/                          \
-                && git clean -df :/;                \
-        elif [ $# -eq 1 ] && [ $1 == "-f" ]; then   \
-            git reset --quiet                       \
-                && git restore :/                   \
-                && git clean -df :/;                \
-        else                                        \
-            echo Invalid parameters;                \
-        fi;                                         \
-    }; f"
-    
-    link = "!cd "${GIT_PREFIX:-.}"; f() {           \
-        if [ $# -eq 1 ] && [ $1 != "-f" ]; then     \
-            git remote add origin \"$1\"            \
-                && git remote set-url origin \"$1\" \
-                && git push -u origin master;       \
-        elif [ $# -eq 2 ] && [ $1 == "-f" ]; then   \
-            git remote add origin \"$2\"            \
-                && git remote set-url origin \"$2\" \
-                && git push -uf origin master;      \
-        else                                        \
-            echo Invalid parameters;                \
-        fi;                                         \
-    }; f"
-    
-    clone-nonempty = "!cd "${GIT_PREFIX:-.}"; f() { \
-        if [ $# -eq 2 ] && [ $1 != "-f" ]; then     \
-            mkdir -p \"$2\"                         \
-                && cd \"$2\"                        \
-                && git init                         \
-                && git remote add origin \"$1\"     \
-                && git fetch                        \
-                && git checkout -t origin/master;   \
-        elif [ $# -eq 3 ] && [ $1 == "-f" ]; then   \
-            mkdir -p \"$3\"                         \
-                && cd \"$3\"                        \
-                && rm -drf .git                     \
-                && git init                         \
-                && git remote add origin \"$2\"     \
-                && git fetch                        \
-                && git checkout -tf origin/master;  \
-        else                                        \
-            echo Invalid parameters;                \
-        fi;                                         \
-    }; f"
-    
-    stash-unstaged = "!cd "${GIT_PREFIX:-.}"; f() {     \
-        git commit --quiet -m \"TEMP (staged changes)\" \
-            && git stash -u \"$@\"                      \
-            && git undoc;                               \
-    }; f"
-    
-    stash-staged = "!cd "${GIT_PREFIX:-.}"; f() {   \
-        git stash-unstaged --quiet                  \
-            && git stash -u \"$@\"                  \
-            && git stash pop --quiet \"stash@{1}\"; \
-    }; f"
-
-    pull-all = "!cd "${GIT_PREFIX:-.}"; f() {                           \
-        if [ -n \"$(git status --porcelain)\" ]; then                   \
-            echo \"error: There are local changes.\";                   \
-            echo \"Aborting...\";                                       \
-        elif [ $# -eq 0 ]; then                                         \
-            git fetch -p;                                               \
-            echo \"From $(git remote get-url origin)\";                 \
-            for remote_branch in `git branch -r | grep -v \" -> \" | grep \"origin/\"`; do \
-                branch=${remote_branch#origin/}                         \
-                    && git fetch --update-head-ok origin \"$branch:$branch\" 2>&1 \
-                        | grep -v \"From\"                              \
-                    && git branch --quiet -u \"$remote_branch\" \"$branch\"; \
-            done;                                                       \
-        elif [ $# -gt 1 ] && [ $1 == "-s" ]; then                       \
-            git fetch -p;                                               \
-            echo \"From $(git remote get-url origin)\";                 \
-            for remote_branch in `git branch -r | grep -v \" -> \" | grep \"origin/\"`; do \
-                branch=${remote_branch#origin/};                        \
-                for ignore_branch in \"$@\"; do                         \
-                    if [ \"$branch\" == \"$ignore_branch\" ]; then      \
-                        echo \"Skipped \\\"$branch\\\"\";               \
-                        continue 2;                                     \
-                    fi;                                                 \
-                done;                                                   \
-                git fetch --update-head-ok origin \"$branch:$branch\" 2>&1 \
-                    | grep -v \"From\"                                  \
-                    && git branch --quiet -u \"$remote_branch\" \"$branch\"; \
-            done;                                                       \
-        else                                                            \
-            echo Invalid parameters;                                    \
-        fi;                                                             \
-    }; f"
-    
-    pull-force = "!cd "${GIT_PREFIX:-.}"; f() { \
-        git fetch                               \
-            && git reset --hard \"origin/$(git branch --show-current)\"; \
-    }; f"
-
-    merge-this = "!cd "${GIT_PREFIX:-.}"; f() { \
-        branch=$(git get-current-branch)        \
-            && git checkout master              \
-            && git merge --no-ff \"$branch\"    \
-            && git branch -D \"$branch\";       \
-    }; f"
-    
-    branch-d-both = "!cd "${GIT_PREFIX:-.}"; f() {  \
-        if [ $# -eq 1 ]; then                       \
-            git branch -d \"$1\"                    \
-                && git push -d origin \"$1\";       \
-        else                                        \
-            echo Invalid parameters;                \
-        fi;                                         \
-    }; f"
-
-    get-deleted-branch = "!cd "${GIT_PREFIX:-.}"; f() {         \
-        if [ $# -eq 1 ]; then                                   \
-            commit_subject=$(git log --format=%s -n 1 \"$1\")   \
-                && branch_name=$(grep -Po \"(?<=')[^']+(?=')\" <<< \"$commit_subject\" | head -1) \
-                && git checkout -b \"$branch_name\" \"$1^2\"    \
-                && git checkout -;                              \
-        else                                                    \
-            echo Invalid parameters;                            \
-        fi;                                                     \
-    }; f"
-
-    unmerge = "!cd "${GIT_PREFIX:-.}"; f() {    \
-        is_merge_commit="$(git rev-parse --verify \"HEAD^2\" 2> /dev/null)"; \
-        if [ -n \"$is_merge_commit\" ]; then    \
-            git get-deleted-branch HEAD         \
-                && git undoc -f                 \
-                && git checkout -;              \
-        else                                    \
-            echo HEAD is not a merge commit;    \
-        fi;                                     \
-    }; f"
-
-    get-in-prog-cmd = "!cd "${GIT_PREFIX:-.}"; f() {\
-        if git is-rebasing; then                    \
-            echo rebase;                            \
-        elif git is-merging; then                   \
-            echo merge;                             \
-        elif git is-cherry-picking; then            \
-            echo cherry-pick;                       \
-        elif git is-reverting; then                 \
-            echo revert;                            \
-        else                                        \
-            >&2 echo \"Not currently rebasing, merging, cherry-picking nor revert\"; \
-            exit 1;                                 \
-        fi;                                         \
-    }; f"
-
-    con = "!cd "${GIT_PREFIX:-.}"; f() {            \
-        in_prog_cmd=\"$(git get-in-prog-cmd)\"      \
-            && echo \"Continuing $in_prog_cmd...\"  \
-            && eval \"git $in_prog_cmd --continue\";\
-    }; f"
-
-    cone = "!cd "${GIT_PREFIX:-.}"; f() {           \
-        in_prog_cmd=\"$(git get-in-prog-cmd)\"      \
-            && echo \"Continuing $in_prog_cmd (no edit)...\"                \
-            && eval \"git -c core.editor=true $in_prog_cmd --continue\";    \
-    }; f"
-    
-    conea = "!cd "${GIT_PREFIX:-.}"; f() { git add -A && git cone; }; f"
-
-    ab = "!cd "${GIT_PREFIX:-.}"; f() {             \
-        in_prog_cmd=\"$(git get-in-prog-cmd)\"      \
-            && echo \"Aborting $in_prog_cmd...\"    \
-            && eval \"git $in_prog_cmd --abort\"    \
-            || git has-unmerged                     \
-            && echo \"...but has unmerged paths\"   \
-            && echo \"Resetting unmerged paths...\" \
-            && git reset --merge;                   \
-    }; f"
-
-    rebase-from = "!cd "${GIT_PREFIX:-.}"; f() {    \
-        if [ $# -ne 2 ]; then                       \
-            echo Invalid parameters;                \
-            exit 1;                                 \
-        fi;                                         \
-        current_branch=$(git get-current-branch)   \
-            && git re --onto \"$2\" \"$1~\" $current_branch; \
-    }; f"
-    
-    replace-with = "!cd "${GIT_PREFIX:-.}"; f() {   \
-        if [ $# -ne 1 ]; then                       \
-            echo Invalid parameters;                \
-        fi;                                         \
-        git reset --hard \"$1\"                     \
-            && git branch -D \"$1\";                \
-    }; f"
-
-    rebase-preserve = "!cd "${GIT_PREFIX:-.}"; f() {   \
-        git -c rebase.instructionFormat='%s%nexec GIT_COMMITTER_DATE=\"%cD\" git commit --amend --no-edit' rebase $@; \
-    }; f"
-    
-    spoof-dates = "!cd "${GIT_PREFIX:-.}"; f() {   \
-        GIT_COMMITTER_DATE=\"$2\" git commit --date=\"$1\" --amend --no-edit; \
-    }; f"
+    # Helper functions.
+    branch-exists = "!./.git_aliases/.helper_functions/branch-exists/script.sh"
+    get-current-branch = "!./.git_aliases/.helper_functions/get-current-branch/script.sh"
+    get-current-hash = "!./.git_aliases/.helper_functions/get-current-hash/script.sh"
+    get-in-prog-cmd = "!./.git_aliases/.helper_functions/get-in-prog-cmd/script.sh"
+    has-unmerged = "!./.git_aliases/.helper_functions/has-unmerged/script.sh"
+    is-ancestor = "!./.git_aliases/.helper_functions/is-ancestor/script.sh"
+    is-cherry-picking = "!./.git_aliases/.helper_functions/is-cherry-picking/script.sh"
+    is-merging = "!./.git_aliases/.helper_functions/is-merging/script.sh"
+    is-rebasing = "!./.git_aliases/.helper_functions/is-rebasing/script.sh"
+    is-reverting = "!./.git_aliases/.helper_functions/is-reverting/script.sh"
+    restore-deleted-branch = "!./.git_aliases/.helper_functions/restore-deleted-branch/script.sh"

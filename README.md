@@ -1,66 +1,14 @@
 ## Git Aliases
 
-### `git cum [flags/parameters]`
+### `git ab`
+
+Aborts the current rebase/merge/cherry-pick/revert command.
 
 ```bash
 # Alias for:
-git add -A
-git commit [flags/parameters]
-```
-
-<br>
-
-### `git cumane`
-
-```bash
-# Alias for:
-git add -A
-git commit --amend --no-edit
-```
-
-<br>
-
-### `git cane`
-
-```bash
-# Alias for:
-git commit --amend --no-edit
-```
-
-<br>
-
-### `git st`
-
-```bash
-# Alias for:
-git status
-```
-
-<br>
-
-### `git pop [flags/parameters]`
-
-```bash
-# Alias for:
-git stash pop [flags/parameters]
-```
-
-<br>
-
-### `git rebun [interactve_command] [commit_hash]`
-
-Rebases a single commit _(with `--rebase-merges` flag)_ without opening interactive editor.
-<br> `[interactive_command]` is the `pick/edit/reword/fix` etc. command in the interactive editor.
-
-```bash
-# Alias for:
-git rebase -i --rebase-merges [commit_hash]~
-# Then replacing the 'pick' of the oldest commit to [interactive_command]
-
-# Example ussage:
-git rebun edit HEAD~3
-git rebun e 2ea1622
-git rebun reword HEAD~4
+in_prog_cmd="$(git get-in-prog-cmd)"
+    && echo "Aborting $in_prog_cmd..."
+    && eval "git $in_prog_cmd --abort"
 ```
 
 <br>
@@ -80,209 +28,23 @@ git addn ./file1 ./dir/file2
 
 <br>
 
-### `git git [commands/flags/parameters]`
+### `git branch-d-both [branch_name]`
 
-For when you accidentally type `git` twice.
-
-```bash
-# Alias for:
-git [commands/flags/parameters]
-```
-
-<br>
-
-### `git get-current-branch`
-
-Gets current branch name.
-<br>_(Used in other aliases)_
+Deletes branch both locally and on remote.
 
 ```bash
 # Alias for:
-git rev-parse --abbrev-ref HEAD
+git branch -d [branch_name]
+git push -d origin [branch_name]
 ```
 
 <br>
 
-### `git get-current-hash`
-
-Gets current commit hash.
-<br>_(Used in other aliases)_
+### `git cane`
 
 ```bash
 # Alias for:
-git rev-parse HEAD
-```
-
-<br>
-
-### `git branch-exists [branch]`
-
-Checks if branch `[branch]` exists.
-<br>_(Used in conditional statements for other aliases)_
-
-```bash
-# Alias for:
-git show-ref --quiet "refs/heads/[branch]"
-
-# Usage:
-if git branch-exists my-branch; then
-...
-```
-
-<br>
-
-### `git is-ancestor [older_commit/branch] [newer_commit/branch]`
-
-Checks if `[older_commit/branch]` is an ancestor of `[newer_commit/branch]`.
-<br>_(Used in conditional statements for other aliases)_
-
-```bash
-# Alias for:
-git merge-base --is-ancestor [older_commit/branch] [newer_commit/branch]
-
-# Usage:
-if git branch-exists origin/master HEAD; then
-...
-```
-
-<br>
-
-### `git is-rebasing`
-
-Checks if is currently rebasing, by checking if the `.git/rebase-merge` folder exists.
-<br>_(Used in `git get-in-prog-cmd`)_
-
-```bash
-# Usage:
-if git is-rebasing; then
-...
-```
-
-<br>
-
-### `git is-merging`
-
-Checks if is currently merging, by checking if the `.git/MERGE_HEAD` file exists.
-<br>_(Used in `git get-in-prog-cmd`)_
-
-```bash
-# Usage:
-if git is-merging; then
-...
-```
-
-<br>
-
-### `git is-cherry-picking`
-
-Checks if is currently cherry-picking, by checking if the `.git/CHERRY_PICK_HEAD` file exists.
-<br>_(Used in `git get-in-prog-cmd`)_
-
-```bash
-# Usage:
-if git is-cherry-picking; then
-...
-```
-
-<br>
-
-### `git is-reverting`
-
-Checks if is currently reverting, by checking if the `.git/REVERT_HEAD` file exists.
-<br>_(Used in `git get-in-prog-cmd`)_
-
-```bash
-# Usage:
-if git is-reverting; then
-...
-```
-
-<br>
-
-### `git has-unmerged`
-
-Checks if there's any unmerged paths, which somehow can occur when `.git/MERGE_HEAD` doesn't exist.
-<br>_(eg. during merge conflicts after applying a stash)_
-<br>_(Used in `git get-in-prog-cmd`)_
-
-```bash
-# Alias for:
-git ls-files --unmerged | grep -q .
-
-# Usage:
-if git has-unmerged; then
-...
-```
-
-<br>
-
-### `git re [flags/parameters]`
-
-Alias for rebase.
-<br>But if no `-i` or `--interactive` is given, it will pass the `interactive` flag along with a noop editor.
-<br>_(this is to force autosquash, which for some reason doesn't run without interactive)_
-
-```bash
-# Alias for (if interactive flag given):
-git rebase [flags/parameters]
-
-# Alias for (if no interactive flag given):
-GIT_SEQUENCE_EDITOR=: git rebase -i [flags/parameters]
-```
-
-<br>
-
-### `git undoc [-f]`
-
-Undo/Uncommit the last commit, keeping the commit's changes as staged.
-<br> _(Force flag doesn't keep the commit's changes)_
-
-```bash
-# Alias for (w/o force flag):
-git reset --soft HEAD~
-
-# Alias for (force flag):
-git reset --hard HEAD~
-```
-
-<br>
-
-### `git dump [-f]`
-
-Dumps any unstaged changes.
-<br> _(Force flag dumps staged changes too)_
-
-> `:/` is to select all files, including files not in the current directory _(eg. "../../file.ext")_
-
-```bash
-# Alias for (w/o force flag):
-git restore :/
-git clean -df :/
-
-
-# Alias for (force flag):
-git reset
-git restore :/
-git clean -df :/
-```
-
-<br>
-
-### `git link [-f] [github_repo_url]`
-
-Links local repo to `[github_repo_url]`, by setting remote `origin` to url and set-upstream push.
-<br> _(Force flag force-pushes local repo to remote)_
-
-```bash
-# Alias for (w/o force flag):
-git remote add origin [github_repo_url]
-git remote set-url origin [github_repo_url]
-git push -u origin master
-
-
-# Alias for (force flag):
-...
-git push -uf origin master
+git commit --amend --no-edit
 ```
 
 <br>
@@ -312,28 +74,134 @@ git clone-nonempty -f https://github.com/EvitanRelta/my-repo .
 
 <br>
 
-### `git stash-unstaged [flags/parameters]`
+### `git con`
 
-Stashes unstaged (and untracked) changes, leaving behind staged changes.
+Continues the current rebase/merge/cherry-pick/revert command.
 
 ```bash
 # Alias for:
-git commit --quiet -m "TEMP (staged changes)"
-git stash -u [flags/parameters]
-git undoc
+in_prog_cmd="$(git get-in-prog-cmd)"
+    && echo "Continuing $in_prog_cmd..."
+    && eval "git $in_prog_cmd --continue"
 ```
 
 <br>
 
-### `git stash-staged [flags/parameters]`
+### `git cone`
 
-Stashes staged changes, leaving behind unstaged changes.
+Continues the current rebase/merge/cherry-pick/revert command while preventing the prompt for editing the commit message.
+<br>_(similar to `--no-edit` flag for `git commit`)_
 
 ```bash
 # Alias for:
-git stash-unstaged --quiet
-git stash -u [flags/parameters]
-git stash pop --quiet "stash@{1}"
+in_prog_cmd="$(git get-in-prog-cmd)"
+    && echo "Continuing $in_prog_cmd (no edit)..."
+    && eval "git -c core.editor=true $in_prog_cmd --continue"
+```
+
+<br>
+
+### `git conea`
+
+Adds all unstaged changes, then continues the current rebase/merge/cherry-pick/revert command while preventing the prompt for editing the commit message.
+
+```bash
+# Alias for:
+git add -A
+git cone
+```
+
+<br>
+
+### `git cum [flags/parameters]`
+
+```bash
+# Alias for:
+git add -A
+git commit [flags/parameters]
+```
+
+<br>
+
+### `git cumane`
+
+```bash
+# Alias for:
+git add -A
+git commit --amend --no-edit
+```
+
+<br>
+
+### `git dump [-f]`
+
+Dumps any unstaged changes.
+<br> _(Force flag dumps staged changes too)_
+
+> `:/` is to select all files, including files not in the current directory _(eg. "../../file.ext")_
+
+```bash
+# Alias for (w/o force flag):
+git restore :/
+git clean -df :/
+
+
+# Alias for (force flag):
+git reset
+git restore :/
+git clean -df :/
+```
+
+<br>
+
+### `git git [commands/flags/parameters]`
+
+For when you accidentally type `git` twice.
+
+```bash
+# Alias for:
+git [commands/flags/parameters]
+```
+
+<br>
+
+### `git link [-f] [github_repo_url]`
+
+Links local repo to `[github_repo_url]`, by setting remote `origin` to url and set-upstream push.
+<br> _(Force flag force-pushes local repo to remote)_
+
+```bash
+# Alias for (w/o force flag):
+git remote add origin [github_repo_url]
+git remote set-url origin [github_repo_url]
+git push -u origin master
+
+
+# Alias for (force flag):
+...
+git push -uf origin master
+```
+
+<br>
+
+### `git merge-this`
+
+Merge _(no fast-forward)_ current branch _(ie. `[branch_name]`)_ to master, and deletes it locally.
+
+```bash
+# Alias for:
+git checkout master
+git merge --no-ff [branch_name]
+git branch -D [branch_name]
+```
+
+<br>
+
+### `git pop [flags/parameters]`
+
+```bash
+# Alias for:
+git stash pop [flags/parameters]
 ```
 
 <br>
@@ -376,42 +244,140 @@ git reset --hard "origin/$(git branch --show-current)"
 
 <br>
 
-### `git merge-this`
+### `git re [flags/parameters]`
 
-Merge _(no fast-forward)_ current branch _(ie. `[branch_name]`)_ to master, and deletes it locally.
+Alias for rebase.
+<br>But if no `-i` or `--interactive` is given, it will pass the `interactive` flag along with a noop editor.
+<br>_(this is to force autosquash, which for some reason doesn't run without interactive)_
 
 ```bash
-# Alias for:
-git checkout master
-git merge --no-ff [branch_name]
-git branch -D [branch_name]
+# Alias for (if interactive flag given):
+git rebase [flags/parameters]
+
+# Alias for (if no interactive flag given):
+GIT_SEQUENCE_EDITOR=: git rebase -i [flags/parameters]
 ```
 
 <br>
 
-### `git branch-d-both [branch_name]`
+### `git rebase-from [inclusive_from_commit] [new_base]`
 
-Deletes branch both locally and on remote.
+Rebase the current branch onto `[new_base]` starting from (and including) `[inclusive_from_commit]`.
+<br>_(similar to `git rebase [new_base]` but only picking commits from `HEAD` up to `[inclusive_from_commit]`)_
+<br>_(uses the `re` alias instead of `rebase`, to force autosquash)_
 
 ```bash
 # Alias for:
-git branch -d [branch_name]
-git push -d origin [branch_name]
+current_branch=$(git get-current-branch)
+git re --onto [new_base] [inclusive_from_commit]~ $current_branch
 ```
 
 <br>
 
-### `git get-deleted-branch [merge_commit_hash]`
+### `git rebase-preserve [same-options-as-rebase]`
 
-Checks out a locally-deleted branch.
-
-Gets the deleted `[branch_name]` from the merge commit's subject.
-<br>_(expects the merge commit's subject to be in the form: "Merge branch '`[branch_name]`' ...")_
+Exactly the same as `rebase`, but preserves the author & committer dates of commits.
 
 ```bash
 # Alias for:
-git checkout -b [branch_name] [merge_commit_hash]^2
-git checkout -   # Go back to previous branch
+git -c rebase.instructionFormat='%s%nexec GIT_COMMITTER_DATE=\"%cD\" git commit --amend --no-edit' rebase [same-options-as-rebase]
+
+# Usage:
+git rebase-preserve -i --rebase-merges @~5
+```
+
+<br>
+
+### `git rebun [interactve_command] [commit_hash]`
+
+Rebases a single commit _(with `--rebase-merges` flag)_ without opening interactive editor.
+<br> `[interactive_command]` is the `pick/edit/reword/fix` etc. command in the interactive editor.
+
+```bash
+# Alias for:
+git rebase -i --rebase-merges [commit_hash]~
+# Then replacing the 'pick' of the oldest commit to [interactive_command]
+
+# Example ussage:
+git rebun edit HEAD~3
+git rebun e 2ea1622
+git rebun reword HEAD~4
+```
+
+<br>
+
+### `git replace-with [branch]`
+
+Resets the head of current branch to that of `[branch]`, then force deletes `[branch]`.
+
+```bash
+# Alias for:
+git reset --hard [branch]
+git branch -D [branch]
+```
+
+<br>
+
+### `git spoof-dates [author-date] [committer-date]`
+
+Changes the author/commiter dates of the previous commit.
+
+```bash
+# Alias for:
+GIT_COMMITTER_DATE="[committer-date]" git commit --date="[author-date]" --amend --no-edit
+
+# Usage:
+git spoof-dates "Fri Dec 2 18:53:50 2022 +0800" "Fri Dec 2 18:54:09 2022 +0800"
+```
+
+<br>
+
+### `git st [flags/parameters]`
+
+```bash
+# Alias for:
+git status [flags/parameters]
+```
+
+<br>
+
+### `git stash-staged [flags/parameters]`
+
+Stashes staged changes, leaving behind unstaged changes.
+
+```bash
+# Alias for:
+git stash-unstaged --quiet
+git stash -u [flags/parameters]
+git stash pop --quiet "stash@{1}"
+```
+
+<br>
+
+### `git stash-unstaged [flags/parameters]`
+
+Stashes unstaged (and untracked) changes, leaving behind staged changes.
+
+```bash
+# Alias for:
+git commit --quiet -m "TEMP (staged changes)"
+git stash -u [flags/parameters]
+git undoc
+```
+
+<br>
+
+### `git undoc [-f]`
+
+Undo/Uncommit the last commit, keeping the commit's changes as staged.
+<br> _(Force flag doesn't keep the commit's changes)_
+
+```bash
+# Alias for (w/o force flag):
+git reset --soft HEAD~
+
+# Alias for (force flag):
+git reset --hard HEAD~
 ```
 
 <br>
@@ -419,14 +385,56 @@ git checkout -   # Go back to previous branch
 ### `git unmerge`
 
 Must be on a merge commit.
-<br>Checks out to the deleted branch of the commit, and undo the merge commit.
+<br>Restore the deleted branch from the merge commit, and undo the merge commit.
 <br>_(effectively undoing `git merge-this`)_
 
 ```bash
 # Alias for:
-git get-deleted-branch HEAD
+git restore-deleted-branch HEAD
 git undoc -f
 git checkout -
+```
+
+<br>
+
+## Helper functions
+
+### `git branch-exists [branch]`
+
+Checks if branch `[branch]` exists.
+<br>_(Used in conditional statements for other aliases)_
+
+```bash
+# Alias for:
+git show-ref --quiet "refs/heads/[branch]"
+
+# Usage:
+if git branch-exists my-branch; then
+...
+```
+
+<br>
+
+### `git get-current-branch`
+
+Gets current branch name.
+<br>_(Used in other aliases)_
+
+```bash
+# Alias for:
+git rev-parse --abbrev-ref HEAD
+```
+
+<br>
+
+### `git get-current-hash`
+
+Gets current commit hash.
+<br>_(Used in other aliases)_
+
+```bash
+# Alias for:
+git rev-parse HEAD
 ```
 
 <br>
@@ -455,105 +463,100 @@ fi
 
 <br>
 
-### `git con`
+### `git has-unmerged`
 
-Continues the current rebase/merge/cherry-pick/revert command.
-
-```bash
-# Alias for:
-in_prog_cmd="$(git get-in-prog-cmd)"
-    && echo "Continuing $in_prog_cmd..."
-    && eval "git $in_prog_cmd --continue"
-```
-
-<br>
-
-### `git cone`
-
-Continues the current rebase/merge/cherry-pick/revert command while preventing the prompt for editing the commit message _(similar to `--no-edit` flag for `git commit`)_.
+Checks if there's any unmerged paths, which somehow can occur when `.git/MERGE_HEAD` doesn't exist.
+<br>_(eg. during merge conflicts after applying a stash)_
+<br>_(Used in `git get-in-prog-cmd`)_
 
 ```bash
 # Alias for:
-in_prog_cmd="$(git get-in-prog-cmd)"
-    && echo "Continuing $in_prog_cmd (no edit)..."
-    && eval "git -c core.editor=true $in_prog_cmd --continue"
-```
-
-<br>
-
-### `git conea`
-
-Adds all unstaged changes, then continues the current rebase/merge/cherry-pick/revert command while preventing the prompt for editing the commit message.
-
-```bash
-# Alias for:
-git add -A
-git cone
-```
-
-<br>
-
-### `git ab`
-
-Aborts the current rebase/merge/cherry-pick/revert command.
-
-```bash
-# Alias for:
-in_prog_cmd="$(git get-in-prog-cmd)"
-    && echo "Aborting $in_prog_cmd..."
-    && eval "git $in_prog_cmd --abort"
-```
-
-<br>
-
-### `git rebase-from [inclusive_from_commit] [new_base]`
-
-Rebase the current branch onto `[new_base]` starting from (and including) `[inclusive_from_commit]`.
-<br>_(similar to `git rebase [new_base]` but only picking commits from `HEAD` up to `[inclusive_from_commit]`)_
-<br>_(uses the `re` alias instead of `rebase`, to force autosquash)_
-
-```bash
-# Alias for:
-current_branch=$(git get-current-branch)
-git re --onto [new_base] [inclusive_from_commit]~ $current_branch
-```
-
-<br>
-
-### `git replace-with [branch]`
-
-Resets the head of current branch to that of `[branch]`, then force deletes `[branch]`.
-
-```bash
-# Alias for:
-git reset --hard [branch]
-git branch -D [branch]
-```
-
-<br>
-
-### `git rebase-preserve [same-options-as-rebase]`
-
-Exactly the same as `rebase`, but preserves the author & committer dates of commits.
-
-```bash
-# Alias for:
-git -c rebase.instructionFormat='%s%nexec GIT_COMMITTER_DATE=\"%cD\" git commit --amend --no-edit' rebase [same-options-as-rebase]
+git ls-files --unmerged | grep -q .
 
 # Usage:
-git rebase-preserve -i --rebase-merges @~5
+if git has-unmerged; then
+...
 ```
 
 <br>
 
-### `git spoof-dates [author-date] [committer-date]`
+### `git is-ancestor [older_commit/branch] [newer_commit/branch]`
 
-Changes the author/commiter dates of the previous commit.
+Checks if `[older_commit/branch]` is an ancestor of `[newer_commit/branch]`.
+<br>_(Used in conditional statements for other aliases)_
 
 ```bash
 # Alias for:
-GIT_COMMITTER_DATE="[committer-date]" git commit --date="[author-date]" --amend --no-edit
+git merge-base --is-ancestor [older_commit/branch] [newer_commit/branch]
 
 # Usage:
-git spoof-dates "Fri Dec 2 18:53:50 2022 +0800" "Fri Dec 2 18:54:09 2022 +0800"
+if git branch-exists origin/master HEAD; then
+...
+```
+
+<br>
+
+### `git is-cherry-picking`
+
+Checks if is currently cherry-picking, by checking if the `.git/CHERRY_PICK_HEAD` file exists.
+<br>_(Used in `git get-in-prog-cmd`)_
+
+```bash
+# Usage:
+if git is-cherry-picking; then
+...
+```
+
+<br>
+
+### `git is-merging`
+
+Checks if is currently merging, by checking if the `.git/MERGE_HEAD` file exists.
+<br>_(Used in `git get-in-prog-cmd`)_
+
+```bash
+# Usage:
+if git is-merging; then
+...
+```
+
+<br>
+
+### `git is-rebasing`
+
+Checks if is currently rebasing, by checking if the `.git/rebase-merge` folder exists.
+<br>_(Used in `git get-in-prog-cmd`)_
+
+```bash
+# Usage:
+if git is-rebasing; then
+...
+```
+
+<br>
+
+### `git is-reverting`
+
+Checks if is currently reverting, by checking if the `.git/REVERT_HEAD` file exists.
+<br>_(Used in `git get-in-prog-cmd`)_
+
+```bash
+# Usage:
+if git is-reverting; then
+...
+```
+
+<br>
+
+### `git restore-deleted-branch [merge_commit_hash]`
+
+Restores a locally-deleted branch from a merge commit.
+
+Infers the deleted `[branch_name]` from the merge commit's subject.
+<br>_(expects the merge commit's subject to be in the form: "Merge branch '`[branch_name]`' ...")_
+
+```bash
+# Alias for:
+git checkout -b [branch_name] [merge_commit_hash]^2
+git checkout -   # Go back to previous branch
 ```
