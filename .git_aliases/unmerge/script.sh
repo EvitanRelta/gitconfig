@@ -1,6 +1,6 @@
 #!/bin/sh
 aliases_root_dir="$(dirname "$0")/.."
-source "$aliases_root_dir/_common.sh"
+source "$aliases_root_dir/.common.sh"
 
 
 is_merge_commit="$(git rev-parse --verify "HEAD^2" 2> /dev/null)"

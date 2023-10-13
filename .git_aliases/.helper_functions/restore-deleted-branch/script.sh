@@ -1,6 +1,6 @@
 #!/bin/sh
 aliases_root_dir="$(dirname "$0")/../.."
-source "$aliases_root_dir/_common.sh"
+source "$aliases_root_dir/.common.sh"
 
 if [ $# -eq 1 ]; then
     commit_subject=$(git log --format=%s -n 1 "$1") &&

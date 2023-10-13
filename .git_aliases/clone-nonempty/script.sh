@@ -1,6 +1,6 @@
 #!/bin/sh
 aliases_root_dir="$(dirname "$0")/.."
-source "$aliases_root_dir/_common.sh"
+source "$aliases_root_dir/.common.sh"
 
 if [ $# -eq 2 ] && [ $1 != "-f" ]; then
     mkdir -p "$2" &&

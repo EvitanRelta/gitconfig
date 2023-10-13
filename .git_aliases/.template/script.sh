@@ -1,3 +1,3 @@
 #!/bin/sh
 aliases_root_dir="$(dirname "$0")/.."
-source "$aliases_root_dir/_common.sh"
+source "$aliases_root_dir/.common.sh"

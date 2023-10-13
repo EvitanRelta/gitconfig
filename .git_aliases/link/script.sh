@@ -1,6 +1,6 @@
 #!/bin/sh
 aliases_root_dir="$(dirname "$0")/.."
-source "$aliases_root_dir/_common.sh"
+source "$aliases_root_dir/.common.sh"
 
 if [ $# -eq 1 ] && [ $1 != "-f" ]; then
     git remote add origin "$1" &&
