@@ -4,7 +4,7 @@
 
 is_merge_commit="$(git rev-parse --verify "HEAD^2" 2> /dev/null)"
 if [ -n "$is_merge_commit" ]; then
-    git get-deleted-branch HEAD &&
+    git restore-deleted-branch HEAD &&
         git undoc -f &&
         git checkout -
 else

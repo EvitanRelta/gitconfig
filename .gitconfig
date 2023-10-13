@@ -47,7 +47,7 @@
     
     branch-d-both = "!~/.git-aliases/branch-d-both/script.sh"
 
-    get-deleted-branch = "!~/.git-aliases/.helper_functions/get-deleted-branch/script.sh"
+    restore-deleted-branch = "!~/.git-aliases/.helper_functions/restore-deleted-branch/script.sh"
 
     unmerge = "!~/.git-aliases/unmerge/script.sh"
 
