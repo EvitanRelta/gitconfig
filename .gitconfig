@@ -53,3 +53,5 @@
     is-rebasing = "!~/.git_aliases/.helper_functions/is-rebasing/script.sh"
     is-reverting = "!~/.git_aliases/.helper_functions/is-reverting/script.sh"
     restore-deleted-branch = "!~/.git_aliases/.helper_functions/restore-deleted-branch/script.sh"
+[push]
+	default = upstream
