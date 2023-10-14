@@ -37,3 +37,7 @@ _git_re() {
 _git_cum() {
     _git_commit
 }
+
+_git_f() {
+    _git_branch
+}

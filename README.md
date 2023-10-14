@@ -154,6 +154,17 @@ git clean -df :/
 
 <br>
 
+### `git f [commit_hash]`
+
+Commit-fixup targeting `[commit_hash]`.
+
+```bash
+# Alias for:
+git commit --fixup=[commit_hash]
+```
+
+<br>
+
 ### `git git [commands/flags/parameters]`
 
 For when you accidentally type `git` twice.
