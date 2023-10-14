@@ -41,3 +41,7 @@ _git_cum() {
 _git_f() {
     _git_branch
 }
+
+_git_ff() {
+    _git_fetch
+}

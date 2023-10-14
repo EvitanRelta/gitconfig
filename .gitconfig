@@ -19,6 +19,7 @@
     cumane = "!~/.git_aliases/cumane/script.sh"
     dump = "!~/.git_aliases/dump/script.sh"
     f = "!~/.git_aliases/f/script.sh"
+    ff = "!~/.git_aliases/ff/script.sh"
     git = "!~/.git_aliases/git/script.sh"
     link = "!~/.git_aliases/link/script.sh"
     merge-this = "!~/.git_aliases/merge-this/script.sh"
