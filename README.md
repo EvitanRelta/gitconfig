@@ -333,6 +333,18 @@ git checkout -b newremote-pr-branch newremote/pr-branch
 
 <br>
 
+### `git pushu`
+
+Push (and setup to track) to the same branch-name on origin.
+
+```bash
+# Alias for:
+current_branch=$(git get-current-branch)
+git push -u origin $current_branch
+```
+
+<br>
+
 ### `git re [flags/parameters]`
 
 Alias for rebase.
