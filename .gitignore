@@ -1,4 +1,7 @@
+# Ignore everything
 *
+
+# Whitelist files
 !.gitignore
 !.gitconfig
 !.bashrc
@@ -6,3 +9,12 @@
 !README.md
 !.git_aliases
 !.git_aliases/**
+
+# Vim-related files
+!.vim/
+!.vim/**
+.vim/.netrwhist
+!.vimrc
+!nonessentials/
+!nonessentials/*.vim
+
