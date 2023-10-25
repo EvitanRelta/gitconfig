@@ -1,5 +1,9 @@
 stty -ixon -ixoff
 
+bind "set completion-ignore-case on"
+bind "set bell-style none"
+bind 'c-h:backward-kill-word'
+bind -x '"\C-t":vim .'
 bind -r '\C-S'
 bind -r '\C-R'
 
