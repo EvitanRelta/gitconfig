@@ -1,6 +1,6 @@
-source ~/nonessentials/visual_replace.vim
-source ~/nonessentials/find.vim
-source ~/nonessentials/text_editor_like_selection.vim
+source ~/.vim/nonessentials/visual_replace.vim
+source ~/.vim/nonessentials/find.vim
+source ~/.vim/nonessentials/text_editor_like_selection.vim
 
 " Turn on syntax highlighting
 syntax on
