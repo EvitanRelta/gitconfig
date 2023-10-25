@@ -45,6 +45,12 @@ for item in "${files_and_dirs[@]}"; do
     ln -s "$DIR/$base_item" ~/"$base_item"
 done
 
+if [[ -L "$DIR/.vim/colors" ]]; then
+    rm "$DIR/.vim/colors"
+fi
+
+ln -s "$DIR/.vim/vim-colorschemes/colors" "$DIR/.vim/colors"
+
 echo "Symlinks created successfully."
 
 # Initialise `vim-colorschemes` submodule.
