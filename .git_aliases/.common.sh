@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Check if `EXEC_IN_REPO_ROOT` is not set to true
 if [ "${EXEC_IN_REPO_ROOT}" != "true" ]; then
