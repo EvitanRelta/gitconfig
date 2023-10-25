@@ -9,6 +9,7 @@
 !README.md
 !.git_aliases
 !.git_aliases/**
+!init.sh
 
 # Vim-related files
 !.vim/
