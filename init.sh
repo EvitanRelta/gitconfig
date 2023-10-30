@@ -56,3 +56,6 @@ echo "Symlinks created successfully."
 # Initialise `vim-colorschemes` submodule.
 cd "$DIR"
 git submodule update --init
+
+git update-index --skip-worktree .bash_profile
+echo "Ignored future changes to '.bash_profile'"
