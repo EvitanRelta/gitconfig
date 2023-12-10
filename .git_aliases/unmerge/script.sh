@@ -5,9 +5,9 @@ set -e
 
 is_merge_commit="$(git rev-parse --verify "HEAD^2" 2> /dev/null)"
 if [ -n "$is_merge_commit" ]; then
-    git restore-deleted-branch HEAD
+    restored_branch_name="$(git restore-deleted-branch HEAD)"
     git undoc -f
-    git checkout -
+    git checkout "$restored_branch_name"
 else
     echo HEAD is not a merge commit
     exit 1
