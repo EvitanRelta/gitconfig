@@ -1,6 +1,7 @@
 #!/bin/bash
 aliases_root_dir="$(dirname "$0")/.."
 source "$aliases_root_dir/.common.sh"
+set -e
 
 if [ -n "$(git status --porcelain)" ]; then
     echo "error: There are local changes."
@@ -10,9 +11,9 @@ elif [ $# -eq 0 ]; then
     git fetch -p
     echo "From $(git remote get-url origin)"
     for remote_branch in `git branch -r | grep -v " -> " | grep "origin/"`; do
-        branch="${remote_branch#origin/}" &&
-            git fetch --update-head-ok origin "$branch:$branch" 2>&1 | grep -v "From" &&
-            git branch --quiet -u "$remote_branch" "$branch"
+        branch="${remote_branch#origin/}"
+        git fetch --update-head-ok origin "$branch:$branch" 2>&1 | grep -v "From"
+        git branch --quiet -u "$remote_branch" "$branch"
     done
 elif [ $# -gt 1 ] && [ "$1" == "-s" ]; then
     git fetch -p
@@ -25,8 +26,8 @@ elif [ $# -gt 1 ] && [ "$1" == "-s" ]; then
                 continue 2
             fi
         done
-        git fetch --update-head-ok origin "$branch:$branch" 2>&1 | grep -v "From" &&
-            git branch --quiet -u "$remote_branch" "$branch"
+        git fetch --update-head-ok origin "$branch:$branch" 2>&1 | grep -v "From"
+        git branch --quiet -u "$remote_branch" "$branch"
     done
 else
     echo Invalid parameters
