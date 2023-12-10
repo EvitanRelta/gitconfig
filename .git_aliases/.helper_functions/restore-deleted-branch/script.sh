@@ -8,4 +8,5 @@ if [ $# -eq 1 ]; then
         git branch "$branch_name" "$1^2"
 else
     echo Invalid parameters
+    exit 1
 fi

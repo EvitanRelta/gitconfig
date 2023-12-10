@@ -8,4 +8,5 @@ elif [ $# -eq 1 ] && [ $1 == "-f" ]; then
     git reset --hard HEAD~
 else
     echo Invalid parameters
+    exit 1
 fi

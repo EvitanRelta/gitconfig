@@ -5,19 +5,20 @@ source "$aliases_root_dir/.common.sh"
 if [ -n "$(git status --porcelain)" ]; then
     echo "error: There are local changes."
     echo "Aborting..."
+    exit 1
 elif [ $# -eq 0 ]; then
     git fetch -p
     echo "From $(git remote get-url origin)"
     for remote_branch in `git branch -r | grep -v " -> " | grep "origin/"`; do
-        branch=${remote_branch#origin/} &&
+        branch="${remote_branch#origin/}" &&
             git fetch --update-head-ok origin "$branch:$branch" 2>&1 | grep -v "From" &&
             git branch --quiet -u "$remote_branch" "$branch"
     done
-elif [ $# -gt 1 ] && [ $1 == "-s" ]; then
+elif [ $# -gt 1 ] && [ "$1" == "-s" ]; then
     git fetch -p
     echo "From $(git remote get-url origin)"
     for remote_branch in `git branch -r | grep -v " -> " | grep "origin/"`; do
-        branch=${remote_branch#origin/}
+        branch="${remote_branch#origin/}"
         for ignore_branch in "$@"; do
             if [ "$branch" == "$ignore_branch" ]; then
                 echo "Skipped \"$branch\""
@@ -29,4 +30,5 @@ elif [ $# -gt 1 ] && [ $1 == "-s" ]; then
     done
 else
     echo Invalid parameters
+    exit 1
 fi

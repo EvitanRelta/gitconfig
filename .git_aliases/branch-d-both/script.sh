@@ -7,4 +7,5 @@ if [ $# -eq 1 ]; then
         git push -d origin "$1"
 else
     echo Invalid parameters
+    exit 1
 fi
