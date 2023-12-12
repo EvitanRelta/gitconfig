@@ -36,6 +36,7 @@
     rebun = "!~/.git_aliases/rebun/script.sh"
     replace-with = "!~/.git_aliases/replace-with/script.sh"
     show-stopped = "!~/.git_aliases/show-stopped/script.sh"
+    show-stopped-unmerged = "!~/.git_aliases/show-stopped-unmerged/script.sh"
     spoof-dates = "!~/.git_aliases/spoof-dates/script.sh"
     st = "!~/.git_aliases/st/script.sh"
     stash-staged = "!~/.git_aliases/stash-staged/script.sh"
