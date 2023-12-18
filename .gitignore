@@ -1,22 +1,4 @@
-# Ignore everything
-*
-
-# Whitelist files
-!.gitignore
-!.gitconfig
-!.bashrc
-!.bash_profile
-!README.md
-!.git_aliases
-!.git_aliases/**
-!init.sh
-
-# Vim-related files
-!.vim/
-!.vim/**
 .vim/.netrwhist
 .vim/colors
-!.vimrc
-!nonessentials/
-!nonessentials/*.vim
-
+*.temp.*
+*.temp
