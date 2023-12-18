@@ -113,6 +113,21 @@ git clone-nonempty -f https://github.com/EvitanRelta/my-repo .
 
 <br>
 
+### `git code-unmerged`
+
+Open all unmerged files in VSCode editor via the `code` command.
+
+For example, if `FILE1`, `PATH/TO/FILE2` and `../FILE3` are unmerged,
+this command runs:
+
+```bash
+code "FILE1"
+code "PATH/TO/FILE2"
+code "../FILE3"
+```
+
+<br>
+
 ### `git con`
 
 Continues the current rebase/merge/cherry-pick/revert command.
@@ -446,6 +461,17 @@ git rebun reword HEAD~4
 
 <br>
 
+### `git redoc`
+
+Commit using the last undone (via `undoc` alias) commit's message.
+
+```bash
+# Alias for:
+git commit -c [last_undone_commit] --no-edit
+```
+
+<br>
+
 ### `git replace-with [branch]`
 
 Resets the head of current branch to that of `[branch]`, then force deletes `[branch]`.
@@ -454,6 +480,31 @@ Resets the head of current branch to that of `[branch]`, then force deletes `[br
 # Alias for:
 git reset --hard [branch]
 git branch -D [branch]
+```
+
+<br>
+
+### `git show-stopped [flags/parameters]`
+
+Shows the changes of the commit that the current rebase has stopped at.
+
+```bash
+# Alias for:
+stopped_commit_hash="$(git get-stopped-hash)"
+git show "$stopped_commit_hash" [flags/parameters]
+```
+
+<br>
+
+### `git show-stopped-unmerged`
+
+Shows the changes of the commit that the current rebase has stopped at,
+specifically only for the currently unmerged files.
+
+```bash
+# Alias for:
+unmerged_paths="$(git get-unmerged-paths)"
+git show-stopped -- "$unmerged_paths"
 ```
 
 <br>
@@ -511,6 +562,9 @@ git undoc
 
 Undo/Uncommit the last commit, keeping the commit's changes as staged.
 <br> _(Force flag doesn't keep the commit's changes)_
+
+Also saves the last undone commit's hash to `undoc_hash.temp` to be used by the
+`redoc` alias.
 
 ```bash
 # Alias for (w/o force flag):
@@ -603,6 +657,33 @@ fi
 
 <br>
 
+### `git get-stopped-hash`
+
+
+Gets the hash of the commit that the current rebase has stopped at.
+<br>_(Used in other aliases)_
+
+```bash
+# Alias for:
+cat .git/rebase-merge/stopped-sha
+```
+
+<br>
+
+### `git get-unmerged-paths`
+
+Gets all the unmerged file paths, relative to the current dir.
+<br>For example, user is in `/A/`, unmerged file at `/B/FILE`, return `../B/FILE`.
+<br>_(Used in other aliases)_
+
+```bash
+# Alias for:
+git diff --name-only --diff-filter=U
+# Then convert to be relative to current dir.
+```
+
+<br>
+
 ### `git has-unmerged`
 
 Checks if there's any unmerged paths, which somehow can occur when `.git/MERGE_HEAD` doesn't exist.
@@ -690,13 +771,13 @@ if git is-reverting; then
 
 ### `git restore-deleted-branch [merge_commit_hash]`
 
-Restores a locally-deleted branch from a merge commit.
+Restores a locally-deleted branch from a merge commit, and returns `[branch_name]`.
 
 Infers the deleted `[branch_name]` from the merge commit's subject.
 <br>_(expects the merge commit's subject to be in the form: "Merge branch '`[branch_name]`' ...")_
 
 ```bash
 # Alias for:
-git checkout -b [branch_name] [merge_commit_hash]^2
-git checkout -   # Go back to previous branch
+git branch [branch_name] [merge_commit_hash]^2
+echo [branch_name]
 ```
