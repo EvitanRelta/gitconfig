@@ -29,7 +29,7 @@
     pull-all = "!~/.git_aliases/pull-all/script.sh"
     pull-force = "!~/.git_aliases/pull-force/script.sh"
     pull-pr = "!~/.git_aliases/pull-pr/script.sh"
-    pullu = "!~/.git_aliases/pullu/script.sh"
+    pushu = "!~/.git_aliases/pushu/script.sh"
     re = "!~/.git_aliases/re/script.sh"
     rebase-from = "!~/.git_aliases/rebase-from/script.sh"
     rebase-preserve = "!~/.git_aliases/rebase-preserve/script.sh"
