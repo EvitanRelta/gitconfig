@@ -19,6 +19,7 @@
     cum = "!~/.git_aliases/cum/script.sh"
     cumane = "!~/.git_aliases/cumane/script.sh"
     delete-this = "!~/.git_aliases/delete-this/script.sh"
+    diffst = "!~/.git_aliases/diffst/script.sh"
     dump = "!~/.git_aliases/dump/script.sh"
     f = "!~/.git_aliases/f/script.sh"
     ff = "!~/.git_aliases/ff/script.sh"
