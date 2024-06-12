@@ -8,6 +8,7 @@
 	autosquash = true
 [alias]
     ab = "!~/.git_aliases/ab/script.sh"
+    addf = "!~/.git_aliases/addf/script.sh"
     addn = "!~/.git_aliases/addn/script.sh"
     branch-d-both = "!~/.git_aliases/branch-d-both/script.sh"
     cane = "!~/.git_aliases/cane/script.sh"
