@@ -41,6 +41,7 @@
     replace-this = "!~/.git_aliases/replace-this/script.sh"
     show-stopped = "!~/.git_aliases/show-stopped/script.sh"
     show-stopped-unmerged = "!~/.git_aliases/show-stopped-unmerged/script.sh"
+    spoof-author = "!~/.git_aliases/spoof-author/script.sh"
     spoof-dates = "!~/.git_aliases/spoof-dates/script.sh"
     st = "!~/.git_aliases/st/script.sh"
     stash-staged = "!~/.git_aliases/stash-staged/script.sh"
