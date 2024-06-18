@@ -25,6 +25,7 @@
     f = "!~/.git_aliases/f/script.sh"
     ff = "!~/.git_aliases/ff/script.sh"
     git = "!~/.git_aliases/git/script.sh"
+    graph = "!~/.git_aliases/graph/script.sh"
     link = "!~/.git_aliases/link/script.sh"
     merge-this = "!~/.git_aliases/merge-this/script.sh"
     pop = "!~/.git_aliases/pop/script.sh"
