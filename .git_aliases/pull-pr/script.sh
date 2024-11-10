@@ -1,7 +1,6 @@
 #!/bin/bash
 aliases_root_dir="$(dirname "$0")/.."
 source "$aliases_root_dir/.common.sh"
-#!/bin/bash
 
 # Check if the script received the necessary input
 if [ "$#" -lt 1 ]; then
@@ -53,8 +52,17 @@ if ! git show-ref --verify --quiet "refs/remotes/$REMOTE_NAME/$BRANCH"; then
     exit 1
 fi
 
-# Create and checkout to a new branch, set to track the remote branch
-git checkout -b "$REMOTE_NAME-$BRANCH" "$REMOTE_NAME/$BRANCH"
+# Check if local branch already exists
+LOCAL_BRANCH="$REMOTE_NAME-$BRANCH"
+if git show-ref --verify --quiet "refs/heads/$LOCAL_BRANCH"; then
+    # Branch exists, checkout and hard reset to remote branch
+    echo "Branch '$LOCAL_BRANCH' already exists, performing hard reset to remote branch"
+    git checkout "$LOCAL_BRANCH"
+    git reset --hard "$REMOTE_NAME/$BRANCH"
+else
+    # Create and checkout to a new branch, set to track the remote branch
+    git checkout -b "$LOCAL_BRANCH" "$REMOTE_NAME/$BRANCH"
+fi
 
 # Output the current branch
-echo "Switched to branch '$REMOTE_NAME-$BRANCH'"
+echo "Switched to branch '$LOCAL_BRANCH'"
