@@ -5,5 +5,5 @@ set -e
 
 branch="$(git get-current-branch)"
 git checkout master
-git merge --no-ff "$branch"
+git merge --no-ff --no-edit "$branch"
 git branch -D "$branch"
