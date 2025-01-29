@@ -52,6 +52,21 @@ in_prog_cmd="$(git get-in-prog-cmd)"
 
 <br>
 
+### `git addf [filenames]`
+
+Fuzzy add filenames.
+
+Prefix and suffix each filename with `*` to match every file that contains the
+keyword.
+
+```bash
+# Alias for:
+fuzzy_filenames=$(echo "$@" | sed -E "s/([^ ]+)/\*\\1\*/g")
+git add "$fuzzy_filenames"
+```
+
+<br>
+
 ### `git addn [file_paths]`
 
 Negative add. Adds everything except the specified file(s).
@@ -200,6 +215,17 @@ git branch -D $current_branch
 
 <br>
 
+### `git diffst [flags/parameters]`
+
+Prints the diff of staged files.
+
+```bash
+# Alias for:
+git diff --staged [flags/parameters]
+```
+
+<br>
+
 ### `git dump [-f]`
 
 Dumps any unstaged changes.
@@ -256,6 +282,22 @@ git [commands/flags/parameters]
 
 <br>
 
+### `git graph`
+
+Displays Git commit graph.
+
+```bash
+# Alias for:
+git log \
+  --graph \
+  --abbrev-commit \
+  --decorate \
+  --all \
+  --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'
+```
+
+<br>
+
 ### `git link [-f] [github_repo_url]`
 
 Links local repo to `[github_repo_url]`, by setting remote `origin` to url and set-upstream push.
@@ -282,7 +324,7 @@ Merge _(no fast-forward)_ current branch _(ie. `[branch_name]`)_ to master, and 
 ```bash
 # Alias for:
 git checkout master
-git merge --no-ff [branch_name]
+git merge --no-ff --no-edit [branch_name]
 git branch -D [branch_name]
 ```
 
@@ -399,6 +441,19 @@ git push -u origin $current_branch
 
 <br>
 
+### `git push-until [commit]`
+
+Push all commits until (and including) `[commit]` to the `origin` branch of
+the same name.
+
+```bash
+# Alias for:
+current_branch="$(git get-current-branch)"
+git push origin "[commit]:$current_branch"
+```
+
+<br>
+
 ### `git re [flags/parameters]`
 
 Alias for rebase.
@@ -472,9 +527,24 @@ git commit -c [last_undone_commit] --no-edit
 
 <br>
 
-### `git replace-with [branch]`
+### `git replace-that [branch]`
 
-Resets the head of current branch to that of `[branch]`, then force deletes `[branch]`.
+Replaces `[branch]` (ie. "that" branch) with current branch, then force deletes
+current branch while checking out to `[branch]`.
+
+```bash
+# Alias for:
+current_branch=$(git get-current-branch)
+git checkout [branch]
+git reset --hard "$current_branch"
+git branch -D "$current_branch"
+```
+
+<br>
+
+### `git replace-this [branch]`
+
+Replaces current branch (ie. "this" branch) with `[branch]`, then force deletes `[branch]`.
 
 ```bash
 # Alias for:
@@ -505,6 +575,17 @@ specifically only for the currently unmerged files.
 # Alias for:
 unmerged_paths="$(git get-unmerged-paths)"
 git show-stopped -- "$unmerged_paths"
+```
+
+<br>
+
+### `git spoof-author [name] [email]`
+
+Changes the author/commiter names and emails of the previous commit.
+
+```bash
+# Alias for:
+GIT_AUTHOR_NAME="[name]" GIT_AUTHOR_EMAIL="[email]" GIT_COMMITTER_NAME="[name]" GIT_COMMITTER_EMAIL="[email]" git commit --amend --no-edit
 ```
 
 <br>
