@@ -17,6 +17,7 @@
     con = "!~/.git_aliases/con_/script.sh"  # Suffixed with "_" as Windows folder name can't be "con".
     cone = "!~/.git_aliases/cone/script.sh"
     conea = "!~/.git_aliases/conea/script.sh"
+    copy-commit-metadata = "!~/.git_aliases/copy-commit-metadata/script.sh"
     cum = "!~/.git_aliases/cum/script.sh"
     cumane = "!~/.git_aliases/cumane/script.sh"
     delete-this = "!~/.git_aliases/delete-this/script.sh"
