@@ -1,11 +1,17 @@
 ### `git rebase-preserve [same-options-as-rebase]`
 
-Exactly the same as `rebase`, but preserves the author & committer dates of commits.
+Exactly the same as `rebase`, but preserves the author & committer names and dates of commits.
 
 ```bash
-# Alias for:
-git -c rebase.instructionFormat='%s%nexec GIT_COMMITTER_DATE=\"%cD\" git commit --amend --no-edit' rebase [same-options-as-rebase]
+# Alias for (linebreaks for display purpose only):
+git -c rebase.instructionFormat='%s%nexec
+    git copy-commit-metadata
+        --committer
+        --author
+        --committer-date
+        --author-date
+    %H' rebase [same-options-as-rebase]
 
-# Usage:
+# Example usage:
 git rebase-preserve -i --rebase-merges @~5
 ```
