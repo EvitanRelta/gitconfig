@@ -1,18 +1,6 @@
 stty -ixon -ixoff
 
-bind "set completion-ignore-case on"
-bind "set bell-style none"
-bind 'c-h:backward-kill-word'
 bind -x '"\C-t":vim .'
-bind -r '\C-S'
-bind -r '\C-R'
-
-bind 'TAB:menu-complete'
-bind '"\e[Z":menu-complete-backward'
-bind "set show-all-if-ambiguous on"
-
-bind '"\e[1;2A":history-search-backward'
-bind '"\e[1;2B":history-search-forward'
 
 # Auto-completion for `git copy-commit-metadata` alias
 _git_copy_commit_metadata() {

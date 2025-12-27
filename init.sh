@@ -3,7 +3,7 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Define an array of the files and directories to check
-files_and_dirs=(.bash_profile .bashrc .git_aliases/ .gitconfig .vim/ .vimrc)
+files_and_dirs=(.bash_profile .bashrc .inputrc .git_aliases/ .gitconfig .vim/ .vimrc)
 
 # Array to store existing files and directories
 exists=()

@@ -1,0 +1,18 @@
+set completion-ignore-case on
+set bell-style none
+set show-all-if-ambiguous on
+
+# Cycle through completions with Tab
+TAB: menu-complete
+"\e[Z": menu-complete-backward
+
+# Shift-Up/Down for history search
+"\e[1;2A": history-search-backward
+"\e[1;2B": history-search-forward
+
+# Ctrl-H for backward-kill-word
+"\C-h": backward-kill-word
+
+# Unbind standard flow control and search keys to allow other uses
+"\C-s": ""
+"\C-r": ""
