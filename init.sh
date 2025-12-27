@@ -3,7 +3,7 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Define an array of the files and directories to check
-files_and_dirs=(.bash_profile .bashrc .inputrc .git_aliases/ .gitconfig .vim/ .vimrc)
+files_and_dirs=(.bash_profile .inputrc .git_aliases/ .gitconfig .vim/ .vimrc)
 
 # Array to store existing files and directories
 exists=()
@@ -44,6 +44,15 @@ for item in "${files_and_dirs[@]}"; do
     base_item="${item%/}"
     ln -s "$DIR/$base_item" ~/"$base_item"
 done
+
+# Append source command to .bashrc instead of replacing it
+BASHRC_LINE="source $DIR/.bashrc"
+if ! grep -qF "$BASHRC_LINE" ~/.bashrc 2>/dev/null; then
+    echo -e "\n$BASHRC_LINE" >> ~/.bashrc
+    echo "Added '$BASHRC_LINE' to ~/.bashrc"
+else
+    echo "'.bashrc' already sources '$DIR/.bashrc'"
+fi
 
 if [[ -L "$DIR/.vim/colors" ]]; then
     rm "$DIR/.vim/colors"
