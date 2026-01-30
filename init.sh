@@ -3,7 +3,7 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Define an array of the files and directories to check
-files_and_dirs=(.bash_profile .inputrc .git_aliases/ .gitconfig .vim/ .vimrc)
+files_and_dirs=(.git_aliases/ .gitconfig .vim/ .vimrc)
 
 # Array to store existing files and directories
 exists=()
@@ -60,11 +60,26 @@ fi
 
 ln -s "$DIR/.vim/vim-colorschemes/colors" "$DIR/.vim/colors"
 
+# Append include statement to .inputrc instead of replacing it
+INPUTRC_LINE="\$include $DIR/.inputrc"
+if ! grep -qF "$INPUTRC_LINE" ~/.inputrc 2>/dev/null; then
+    echo -e "\n$INPUTRC_LINE" >> ~/.inputrc
+    echo "Added '$INPUTRC_LINE' to ~/.inputrc"
+else
+    echo "'.inputrc' already includes '$DIR/.inputrc'"
+fi
+
 echo "Symlinks created successfully."
+
+# Create .bash_profile to source .bashrc for login shells
+cat > ~/.bash_profile << 'EOF'
+# Load `.bashrc` if it exists.
+test -f ~/.bashrc && . ~/.bashrc
+EOF
+
+echo "Created ~/.bash_profile to source ~/.bashrc"
 
 # Initialise `vim-colorschemes` submodule.
 cd "$DIR"
 git submodule update --init
 
-git update-index --skip-worktree .bash_profile
-echo "Ignored future changes to '.bash_profile'"
