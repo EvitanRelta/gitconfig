@@ -16,3 +16,9 @@ TAB: menu-complete
 # Unbind standard flow control and search keys to allow other uses
 "\C-s": ""
 "\C-r": ""
+
+# Enable CSI sequence handling (bash 5.1+)
+"\e[": skip-csi-sequence
+
+# Bind CSI u sequence for Ctrl+Backspace
+"\e[127;5u": backward-kill-word
