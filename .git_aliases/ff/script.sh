@@ -4,5 +4,9 @@ source "$aliases_root_dir/.common.sh"
 set -e
 
 current_branch="$(git get-current-branch)"
-git fetch "$1"
-git merge --ff-only "$1/$current_branch"
+if [ -z "$1" ]; then
+    git merge --ff-only "@{u}"
+else
+    git fetch "$1"
+    git merge --ff-only "$1/$current_branch"
+fi
