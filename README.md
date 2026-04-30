@@ -182,6 +182,40 @@ git cone
 
 <br>
 
+### `git copy-commit-metadata [--all|--committer|--author|--committer-date|--author-date|--message] [COMMIT_HASH]`
+
+Amends the last commit to copy the committer/author names and dates and commit
+message of `[COMMIT_HASH]`.
+
+Takes the flags which selects which metadata to copy:
+
+-   `--all`: All metadata
+-   `--committer`: Committer name/email
+-   `--author`: Author name/email
+-   `--committer-date`: Committer date
+-   `--author-date`: Author date
+-   `--message`: Commit message
+
+```bash
+# Alias for:
+committer_name=$(git show -s --format='%cn' [COMMIT_HASH])
+committer_email=$(git show -s --format='%ce' [COMMIT_HASH])
+committer_date=$(git show -s --format='%cd' [COMMIT_HASH])
+author=$(git show -s --format='%an <%ae>' [COMMIT_HASH])
+author_date=$(git show -s --format='%ad' [COMMIT_HASH])
+commit_message=$(git show -s --format='%B' [COMMIT_HASH])
+
+GIT_COMMITTER_NAME="$committer_name" \
+GIT_COMMITTER_EMAIL="$committer_email" \
+GIT_COMMITTER_DATE="$committer_date" \
+git commit --amend --no-edit \
+    --author="$author" \
+    --date="$author_date" \
+    -m "$commit_message"
+```
+
+<br>
+
 ### `git cum [flags/parameters]`
 
 ```bash
@@ -429,18 +463,6 @@ git checkout -b newremote-pr-branch newremote/pr-branch
 
 <br>
 
-### `git pushu`
-
-Push (and setup to track) to the same branch-name on origin.
-
-```bash
-# Alias for:
-current_branch=$(git get-current-branch)
-git push -u origin $current_branch
-```
-
-<br>
-
 ### `git push-until [commit]`
 
 Push all commits until (and including) `[commit]` to the `origin` branch of
@@ -450,6 +472,18 @@ the same name.
 # Alias for:
 current_branch="$(git get-current-branch)"
 git push origin "[commit]:$current_branch"
+```
+
+<br>
+
+### `git pushu`
+
+Push (and setup to track) to the same branch-name on origin.
+
+```bash
+# Alias for:
+current_branch=$(git get-current-branch)
+git push -u origin $current_branch
 ```
 
 <br>
@@ -486,13 +520,19 @@ git re --onto [new_base] [inclusive_from_commit]~ $current_branch
 
 ### `git rebase-preserve [same-options-as-rebase]`
 
-Exactly the same as `rebase`, but preserves the author & committer dates of commits.
+Exactly the same as `rebase`, but preserves the author & committer names and dates of commits.
 
 ```bash
-# Alias for:
-git -c rebase.instructionFormat='%s%nexec GIT_COMMITTER_DATE=\"%cD\" git commit --amend --no-edit' rebase [same-options-as-rebase]
+# Alias for (linebreaks for display purpose only):
+git -c rebase.instructionFormat='%s%nexec
+    git copy-commit-metadata
+        --committer
+        --author
+        --committer-date
+        --author-date
+    %H' rebase [same-options-as-rebase]
 
-# Usage:
+# Example usage:
 git rebase-preserve -i --rebase-merges @~5
 ```
 
@@ -554,18 +594,6 @@ git branch -D [branch]
 
 <br>
 
-### `git show-stopped [flags/parameters]`
-
-Shows the changes of the commit that the current rebase has stopped at.
-
-```bash
-# Alias for:
-stopped_commit_hash="$(git get-stopped-hash)"
-git show "$stopped_commit_hash" [flags/parameters]
-```
-
-<br>
-
 ### `git show-stopped-unmerged`
 
 Shows the changes of the commit that the current rebase has stopped at,
@@ -579,13 +607,25 @@ git show-stopped -- "$unmerged_paths"
 
 <br>
 
+### `git show-stopped [flags/parameters]`
+
+Shows the changes of the commit that the current rebase has stopped at.
+
+```bash
+# Alias for:
+stopped_commit_hash="$(git get-stopped-hash)"
+git show "$stopped_commit_hash" [flags/parameters]
+```
+
+<br>
+
 ### `git spoof-author [name] [email]`
 
 Changes the author/commiter names and emails of the previous commit.
 
 ```bash
 # Alias for:
-GIT_AUTHOR_NAME="[name]" GIT_AUTHOR_EMAIL="[email]" GIT_COMMITTER_NAME="[name]" GIT_COMMITTER_EMAIL="[email]" git commit --amend --no-edit
+GIT_COMMITTER_NAME="[name]" GIT_COMMITTER_EMAIL="[email]" git commit --amend --no-edit --author="[name] <[email]>"
 ```
 
 <br>
