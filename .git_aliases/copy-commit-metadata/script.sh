@@ -81,6 +81,16 @@ if [ "$copy_all" = true ]; then
     copy_message=true
 fi
 
+target_cn=$(git show -s --format='%cn' HEAD)
+target_ce=$(git show -s --format='%ce' HEAD)
+target_cd=$(git show -s --format='%cd' HEAD)
+
+if [ -z "$target_cn" ] || [ -z "$target_ce" ] || [ -z "$target_cd" ]; then
+    echo "Error: Unable to read committer info from HEAD."
+    git show -s --format='%H %an <%ae> %ad' HEAD 2>&1 || true
+    exit 1
+fi
+
 # Initialize git command parameters
 git_env=""
 git_params="--amend --no-edit"
@@ -89,13 +99,18 @@ git_params="--amend --no-edit"
 if [ "$copy_committer" = true ]; then
     committer_name=$(git show -s --format='%cn' "$commit_hash")
     committer_email=$(git show -s --format='%ce' "$commit_hash")
-    git_env+="GIT_COMMITTER_NAME=\"$committer_name\" GIT_COMMITTER_EMAIL=\"$committer_email\" "
+else
+    committer_name="$target_cn"
+    committer_email="$target_ce"
 fi
-    
+git_env+="GIT_COMMITTER_NAME=\"$committer_name\" GIT_COMMITTER_EMAIL=\"$committer_email\" "
+
 if [ "$copy_committer_date" = true ]; then
     committer_date=$(git show -s --format='%cd' "$commit_hash")
-    git_env+="GIT_COMMITTER_DATE=\"$committer_date\" "
+else
+    committer_date="$target_cd"
 fi
+git_env+="GIT_COMMITTER_DATE=\"$committer_date\" "
 
 # Get and apply author info if requested
 if [ "$copy_author" = true ]; then

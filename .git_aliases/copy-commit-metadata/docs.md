@@ -1,7 +1,7 @@
 ### `git copy-commit-metadata [--all|--committer|--author|--committer-date|--author-date|--message] [COMMIT_HASH]`
 
-Amends the last commit to copy the committer/author names and dates and commit
-message of `[COMMIT_HASH]`.
+Amends the last commit to copy the committer/author names and dates and commit message
+of `[COMMIT_HASH]`. Unselected fields are preserved from HEAD.
 
 Takes the flags which selects which metadata to copy:
 
