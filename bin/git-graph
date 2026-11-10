@@ -1,0 +1,21 @@
+#!/bin/bash
+# Pages git-graph through less (the built-in pager was removed in git-graph 0.8.0).
+# Also used by `git graph`, since git runs git-graph before checking aliases.
+
+# Find the real git-graph: the first one on PATH that isn't this wrapper
+real=$(type -ap git-graph | while read -r p; do [[ $p -ef $0 ]] || { echo "$p"; break; }; done)
+
+# git-graph not installed: fall back to the `git graph` alias (git log --graph)
+[ -n "$real" ] || exec "$(dirname "$0")/../.git_aliases/graph/script.sh" "$@"
+
+# Not a terminal (piped/redirected): behave exactly like the real binary
+[ -t 1 ] || exec "$real" "$@"
+
+# Add defaults only if not given, since git-graph rejects repeated options
+opts=()
+[[ " $* " =~ \ --(color|no-color) ]] || opts+=(--color always)
+[[ " $* " =~ \ (--wrap|-w) ]] || opts+=(--wrap=none)
+
+# -R colours, -F quit if it fits on one screen, -X keep output after quit,
+# -S cut long lines instead of wrapping (scroll sideways with Left/Right)
+"$real" "${opts[@]}" "$@" | less -RFXS

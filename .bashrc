@@ -1,5 +1,8 @@
 stty -ixon -ixoff
 
+# Wrapper scripts in `bin/` (e.g. `git-graph`) must come before the real programs
+export PATH="$(dirname "$(realpath "${BASH_SOURCE[0]}")")/bin:$PATH"
+
 bind -x '"\C-t":vim .'
 
 # Auto-completion for `git copy-commit-metadata` alias

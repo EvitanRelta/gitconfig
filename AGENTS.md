@@ -6,6 +6,8 @@ Dotfiles repo. `init.sh` symlinks everything into `~/`, then runs `git submodule
 
 Key files: `.gitconfig`, `.bashrc`, `.bash_profile`, `.inputrc`, `.vimrc`, `.vim/`
 
+`bin/` holds wrapper scripts (e.g. `bin/git-graph`, which pages git-graph through `less`); `.bashrc` prepends it to `PATH`.
+
 ## Git aliases
 
 Each alias is a directory under `.git_aliases/<name>/` containing:
