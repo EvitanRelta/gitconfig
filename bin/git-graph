@@ -35,7 +35,8 @@ opts=()
 # shorten the green "(N <unit>s ago)" date to "(N<unit>)" (%ar always uses
 # plural units).
 # less: -R colours, -F quit if it fits on one screen, -X keep output after quit,
-# -S cut long lines instead of wrapping (scroll sideways with Left/Right)
+# -S cut long lines instead of wrapping (scroll sideways with Left/Right),
+# --shift=4 scroll sideways 4 chars per press (default is half the screen)
 "$real" "${opts[@]}" ${format:+--format "$format"} "$@" \
     | sed -E $'
         s/(\e\\[38;5;([0-9]+)m[●○]\e\\[0m.*)\e\\[38;5;11m([0-9a-f]{7})\e\\[0m/\\1\e[1;38;5;\\2m\\3\e[0m/
@@ -47,4 +48,4 @@ opts=()
         s/(\e\\[1;32m\\([0-9]+) weeks ago/\\1w/
         s/(\e\\[1;32m\\([0-9]+) months ago/\\1mo/
         s/(\e\\[1;32m\\([0-9]+) years ago/\\1y/' \
-    | less -RFXS
+    | less -RFXS --shift=4
