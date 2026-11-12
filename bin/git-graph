@@ -28,14 +28,22 @@ opts=()
 [[ -n $format && ! " $* " =~ \ (--no-color|--color[\ =]never) ]] \
     && format=$'%h - \e[1;32m(%ar)\e[0m \e[37m%s\e[0m \e[2;37m- %an\e[0m%d'
 [[ " $* " =~ \ --(color|no-color) ]] || opts+=(--color always)
-[[ " $* " =~ \ (--wrap|-w) ]] || opts+=(--wrap=none)
+# Wrap ourselves (below) unless a --wrap is given: git-graph's own wrapping can't
+# indent each commit's continuation lines to line up with its message
+wrap=
+[[ " $* " =~ \ (--wrap|-w) ]] || { opts+=(--wrap=none); wrap=1; }
 
 # sed: recolour git-graph's hard-coded yellow (38;5;11) hash to its commit dot's
 # colour (or bold blue if no dot is found, e.g. `--style ascii`), then
 # shorten the green "(N <unit>s ago)" date to "(N<unit>)" (%ar always uses
 # plural units).
+# git-graph-wrap.pl: wrap to the terminal width, aligning continuation lines
+# with the commit message and continuing the graph's lines down beside them.
+# Width comes from the terminal itself, since stdout is the pipe into less.
+cols=$(stty size </dev/tty 2>/dev/null) && cols=${cols#* } || cols=$(tput cols 2>/dev/null)
 # less: -R colours, -F quit if it fits on one screen, -X keep output after quit,
-# -S cut long lines instead of wrapping (scroll sideways with Left/Right),
+# -S cut lines still too long (e.g. a graph too wide to wrap beside) instead of
+# wrapping them, so the graph stays intact (scroll sideways with Left/Right),
 # --shift=4 scroll sideways 4 chars per press (default is half the screen)
 "$real" "${opts[@]}" ${format:+--format "$format"} "$@" \
     | sed -E $'
@@ -48,4 +56,5 @@ opts=()
         s/(\e\\[1;32m\\([0-9]+) weeks ago/\\1w/
         s/(\e\\[1;32m\\([0-9]+) months ago/\\1mo/
         s/(\e\\[1;32m\\([0-9]+) years ago/\\1y/' \
+    | if [ -n "$wrap" ]; then perl "$(dirname "$0")/lib/git-graph-wrap.pl" "${cols:-80}"; else cat; fi \
     | less -RFXS --shift=4
