@@ -75,7 +75,9 @@ sub continuation {
         my ($ca, $cola) = @{ $a->{cells}[$j] };
         my ($cb, $colb) = $b && $b->{cells}[$j] ? @{ $b->{cells}[$j] } : (' ', undef);
         if ($DOWN{$ca} && $UP{$cb}) {
-            my $col = $colb // $cola;
+            # Current row's colour: a junction below (e.g. ┴) takes the
+            # colour of the branch joining from the side
+            my $col = $cola // $colb;
             my $v = $VERT // '│';
             $out .= defined $col ? "$col$v\e[0m" : $v;
         }
