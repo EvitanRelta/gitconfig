@@ -2,9 +2,9 @@
 
 ## Architecture
 
-Dotfiles repo. `init.sh` symlinks everything into `~/`, then runs `git submodule update --init` for vim colors and `git update-index --skip-worktree .bash_profile`.
+Dotfiles repo. `init.sh` symlinks `.git_aliases/`, `.gitconfig`, `.vim/` and `.vimrc` into `~/`, appends lines to `~/.bashrc` and `~/.inputrc` that load this repo's copies, writes `~/.bash_profile` to load `~/.bashrc`, then runs `git submodule update --init` for vim colors.
 
-Key files: `.gitconfig`, `.bashrc`, `.bash_profile`, `.inputrc`, `.vimrc`, `.vim/`
+Key files: `.gitconfig`, `.bashrc`, `.inputrc`, `.vimrc`, `.vim/`
 
 `bin/` holds wrapper scripts (e.g. `bin/git-graph`, which pages git-graph through `less`); `.bashrc` prepends it to `PATH`. `bin/lib/` holds their non-executable helpers (e.g. `git-graph-wrap.pl`, which wraps git-graph's output and continues the graph beside wrapped lines); it isn't on `PATH`.
 
@@ -30,5 +30,4 @@ Same pattern but lives under `.git_aliases/.helper_functions/<name>/`.
 - **README.md is auto-generated** — never edit it directly; run `generate_readme.sh` after changing any `docs.md`
 - **`con_` directory** — Windows can't have folders named `con`, so the `con` alias lives in `con_/`
 - **`.vim/colors`** — symlink to `.vim/vim-colorschemes/colors` (created by `init.sh`); don't commit the symlink target
-- **`.bash_profile`** — marked `--skip-worktree` by `init.sh`, so local changes are invisible to `git status`
 - **`.git_aliases/.common.sh`** — sourced by all alias scripts; handles `--docs` flag display and `GIT_PREFIX` directory handling

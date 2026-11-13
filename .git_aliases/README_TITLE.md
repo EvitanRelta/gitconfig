@@ -6,13 +6,14 @@ Specifically, it'll create these symlinks:
 
 ```bash
 # In root: ~/
-.bash_profile@   --> gitconfig/.bash_profile
-.bashrc@         --> gitconfig/.bashrc
 .git_aliases@    --> gitconfig/.git_aliases
 .gitconfig@      --> gitconfig/.gitconfig
 .vim@            --> gitconfig/.vim
 .vimrc@          --> gitconfig/.vimrc
 ```
+
+It also appends a line to `~/.bashrc` and `~/.inputrc` that loads this repo's `.bashrc`/`.inputrc`,
+and writes `~/.bash_profile` to load `~/.bashrc`.
 
 <br>
 
