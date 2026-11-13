@@ -71,21 +71,35 @@ fi
 
 echo "Symlinks created successfully."
 
-# Create .bash_profile to source .bashrc for login shells.
-# Bash skips ~/.profile once ~/.bash_profile exists, so load it from here too (Ubuntu's adds
-# ~/.local/bin to PATH). Skip the .bashrc line if ~/.profile already loads it, to avoid loading twice.
-{
-    if [[ -f ~/.profile ]]; then
-        echo '# Load `.profile`, which bash skips when `.bash_profile` exists.'
-        echo 'test -f ~/.profile && . ~/.profile'
-    fi
-    if ! grep -q '\.bashrc' ~/.profile 2>/dev/null; then
-        echo '# Load `.bashrc` if it exists.'
-        echo 'test -f ~/.bashrc && . ~/.bashrc'
-    fi
-} > ~/.bash_profile
+# Old init.sh versions symlinked ~/.bash_profile into this repo; that file no longer exists.
+# Appending through the broken link would create a stray file in this repo, so drop it.
+if [[ -L ~/.bash_profile && ! -e ~/.bash_profile ]]; then
+    rm ~/.bash_profile
+    echo "Removed broken ~/.bash_profile symlink"
+fi
 
-echo "Created ~/.bash_profile to source ~/.profile (if present) and ~/.bashrc"
+# Make login shells load .bashrc, without replacing an existing ~/.bash_profile
+if [[ ! -e ~/.bash_profile ]]; then
+    # Bash skips ~/.profile once ~/.bash_profile exists, so load it from here too (Ubuntu's adds
+    # ~/.local/bin to PATH). Skip the .bashrc line if ~/.profile already loads it, to avoid loading twice.
+    {
+        if [[ -f ~/.profile ]]; then
+            echo '# Load `.profile`, which bash skips when `.bash_profile` exists.'
+            echo 'test -f ~/.profile && . ~/.profile'
+        fi
+        if ! grep -q '\.bashrc' ~/.profile 2>/dev/null; then
+            echo '# Load `.bashrc` if it exists.'
+            echo 'test -f ~/.bashrc && . ~/.bashrc'
+        fi
+    } > ~/.bash_profile
+    echo "Created ~/.bash_profile to source ~/.profile (if present) and ~/.bashrc"
+elif ! grep -qE '\.(bashrc|profile)' ~/.bash_profile; then
+    # Bash was already skipping ~/.profile for this user, so only add the .bashrc line
+    echo -e '\n# Load `.bashrc` if it exists.\ntest -f ~/.bashrc && . ~/.bashrc' >> ~/.bash_profile
+    echo "Added .bashrc loading to ~/.bash_profile"
+else
+    echo "'.bash_profile' already loads .bashrc or .profile; left unchanged"
+fi
 
 # Initialise `vim-colorschemes` submodule.
 cd "$DIR"
