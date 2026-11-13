@@ -29,7 +29,6 @@ Same pattern but lives under `.git_aliases/.helper_functions/<name>/`.
 
 - **README.md is auto-generated** — never edit it directly; run `generate_readme.sh` after changing any `docs.md`
 - **`con_` directory** — Windows can't have folders named `con`, so the `con` alias lives in `con_/`
-- **`undoc_hash.temp`** — tracked file used for state sharing between `undoc` and `redoc` aliases
 - **`.vim/colors`** — symlink to `.vim/vim-colorschemes/colors` (created by `init.sh`); don't commit the symlink target
 - **`.bash_profile`** — marked `--skip-worktree` by `init.sh`, so local changes are invisible to `git status`
 - **`.git_aliases/.common.sh`** — sourced by all alias scripts; handles `--docs` flag display and `GIT_PREFIX` directory handling

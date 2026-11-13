@@ -2,7 +2,8 @@
 aliases_root_dir="$(dirname "$0")/.."
 source "$aliases_root_dir/.common.sh"
 
-last_undone_hash_save_path="$(realpath "$aliases_root_dir/../undoc_hash.temp")"
+# Stored per repo (inside its .git dir) so `redoc` in another repo can't pick it up
+last_undone_hash_save_path="$(git rev-parse --absolute-git-dir)/undoc_hash" || exit 1
 
 if [ $# -eq 0 ]; then
     git get-current-hash > "$last_undone_hash_save_path"
