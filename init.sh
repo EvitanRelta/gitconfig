@@ -71,13 +71,21 @@ fi
 
 echo "Symlinks created successfully."
 
-# Create .bash_profile to source .bashrc for login shells
-cat > ~/.bash_profile << 'EOF'
-# Load `.bashrc` if it exists.
-test -f ~/.bashrc && . ~/.bashrc
-EOF
+# Create .bash_profile to source .bashrc for login shells.
+# Bash skips ~/.profile once ~/.bash_profile exists, so load it from here too (Ubuntu's adds
+# ~/.local/bin to PATH). Skip the .bashrc line if ~/.profile already loads it, to avoid loading twice.
+{
+    if [[ -f ~/.profile ]]; then
+        echo '# Load `.profile`, which bash skips when `.bash_profile` exists.'
+        echo 'test -f ~/.profile && . ~/.profile'
+    fi
+    if ! grep -q '\.bashrc' ~/.profile 2>/dev/null; then
+        echo '# Load `.bashrc` if it exists.'
+        echo 'test -f ~/.bashrc && . ~/.bashrc'
+    fi
+} > ~/.bash_profile
 
-echo "Created ~/.bash_profile to source ~/.bashrc"
+echo "Created ~/.bash_profile to source ~/.profile (if present) and ~/.bashrc"
 
 # Initialise `vim-colorschemes` submodule.
 cd "$DIR"

@@ -2,7 +2,7 @@
 
 ## Architecture
 
-Dotfiles repo. `init.sh` symlinks `.git_aliases/`, `.gitconfig`, `.vim/` and `.vimrc` into `~/`, appends lines to `~/.bashrc` and `~/.inputrc` that load this repo's copies, writes `~/.bash_profile` to load `~/.bashrc`, then runs `git submodule update --init` for vim colors.
+Dotfiles repo. `init.sh` symlinks `.git_aliases/`, `.gitconfig`, `.vim/` and `.vimrc` into `~/`, appends lines to `~/.bashrc` and `~/.inputrc` that load this repo's copies, writes `~/.bash_profile` to load `~/.profile` (if present) and `~/.bashrc`, then runs `git submodule update --init` for vim colors.
 
 Key files: `.gitconfig`, `.bashrc`, `.inputrc`, `.vimrc`, `.vim/`
 

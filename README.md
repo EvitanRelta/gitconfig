@@ -13,7 +13,7 @@ Specifically, it'll create these symlinks:
 ```
 
 It also appends a line to `~/.bashrc` and `~/.inputrc` that loads this repo's `.bashrc`/`.inputrc`,
-and writes `~/.bash_profile` to load `~/.bashrc`.
+and writes `~/.bash_profile` to load `~/.profile` (if present) and `~/.bashrc`.
 
 <br>
 
