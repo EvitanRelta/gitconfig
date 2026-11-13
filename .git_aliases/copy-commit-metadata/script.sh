@@ -91,9 +91,10 @@ if [ -z "$target_cn" ] || [ -z "$target_ce" ] || [ -z "$target_cd" ]; then
     exit 1
 fi
 
-# Initialize git command parameters
-git_env=""
-git_params="--amend --no-edit"
+# Initialize git command parameters. Arrays (not strings + eval) so names and
+# messages containing quotes or $(...) are passed through literally.
+git_env=()
+git_params=(--amend --no-edit)
 
 # Get and apply committer info if requested
 if [ "$copy_committer" = true ]; then
@@ -103,36 +104,36 @@ else
     committer_name="$target_cn"
     committer_email="$target_ce"
 fi
-git_env+="GIT_COMMITTER_NAME=\"$committer_name\" GIT_COMMITTER_EMAIL=\"$committer_email\" "
+git_env+=("GIT_COMMITTER_NAME=$committer_name" "GIT_COMMITTER_EMAIL=$committer_email")
 
 if [ "$copy_committer_date" = true ]; then
     committer_date=$(git show -s --format='%cd' "$commit_hash")
 else
     committer_date="$target_cd"
 fi
-git_env+="GIT_COMMITTER_DATE=\"$committer_date\" "
+git_env+=("GIT_COMMITTER_DATE=$committer_date")
 
 # Get and apply author info if requested
 if [ "$copy_author" = true ]; then
     author_name=$(git show -s --format='%an' "$commit_hash")
     author_email=$(git show -s --format='%ae' "$commit_hash")
-    git_params+=" --author=\"$author_name <$author_email>\""
+    git_params+=("--author=$author_name <$author_email>")
 fi
 
 # Get and apply author date if requested
 if [ "$copy_author_date" = true ]; then
     author_date=$(git show -s --format='%ad' "$commit_hash")
-    git_params+=" --date=\"$author_date\""
+    git_params+=("--date=$author_date")
 fi
 
 # Get and apply commit message if requested
 if [ "$copy_message" = true ]; then
     commit_message=$(git show -s --format='%B' "$commit_hash")
-    git_params+=" -m \"$commit_message\""
+    git_params+=(-m "$commit_message")
 fi
 
 
 # Execute the git command
-eval $git_env git commit $git_params
+env "${git_env[@]}" git commit "${git_params[@]}"
 
 echo "Successfully copied selected information from commit $commit_hash"
