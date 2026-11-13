@@ -1,12 +1,20 @@
 #!/bin/bash
 # Pages git-graph through less (the built-in pager was removed in git-graph 0.8.0).
 # Also used by `git graph`, since git runs git-graph before checking aliases.
+# Also accepts `-<N>` (like `git log -10`) as shorthand for `-n <N>`.
 
 # Find the real git-graph: the first one on PATH that isn't this wrapper
 real=$(type -ap git-graph | while read -r p; do [[ $p -ef $0 ]] || { echo "$p"; break; }; done)
 
 # git-graph not installed: fall back to the `git graph` alias (git log --graph)
 [ -n "$real" ] || exec "$(dirname "$0")/../.git_aliases/graph/script.sh" "$@"
+
+# `-<N>` (like `git log -10`): rewrite to git-graph's `-n <N>`
+args=()
+for a in "$@"; do
+    [[ $a =~ ^-[0-9]+$ ]] && args+=(-n "${a#-}") || args+=("$a")
+done
+set -- "${args[@]}"
 
 # `model` subcommand / help / version: pass straight through
 [[ $1 == model || " $* " =~ \ (-h|--help|-V|--version)\  ]] && exec "$real" "$@"
