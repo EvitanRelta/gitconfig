@@ -8,6 +8,8 @@ Key files: `.gitconfig`, `.bashrc`, `.inputrc`, `.vimrc`, `.vim/`
 
 `bin/` holds wrapper scripts (e.g. `bin/git-graph`, which pages git-graph through `less`); `.bashrc` prepends it to `PATH`. `bin/lib/` holds their non-executable helpers (e.g. `git-graph-wrap.pl`, which wraps git-graph's output and continues the graph beside wrapped lines); it isn't on `PATH`.
 
+If `difft` (difftastic) is on `PATH` when `.bashrc` loads, `.bashrc` sets `GIT_EXTERNAL_DIFF=difft` and wraps `git` so `show`/`log` get `--ext-diff`. difft is optional.
+
 ## Git aliases
 
 Each alias is a directory under `.git_aliases/<name>/` containing:

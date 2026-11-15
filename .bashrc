@@ -5,6 +5,18 @@ export PATH="$(dirname "$(realpath "${BASH_SOURCE[0]}")")/bin:$PATH"
 
 bind -x '"\C-t":vim .'
 
+# Use difftastic for `git diff`/`show`/`log -p` when it's installed.
+# Opt out with `--no-ext-diff` (e.g. for `git apply`, or if git <=2.43.1 crashes on a mode change).
+if command -v difft >/dev/null; then
+    export GIT_EXTERNAL_DIFF=difft
+    git() {
+        case "$1" in
+            show|log) command git "$1" --ext-diff "${@:2}" ;;
+            *)        command git "$@" ;;
+        esac
+    }
+fi
+
 # Auto-completion for `git copy-commit-metadata` alias
 _git_copy_commit_metadata() {
     local cur prev words cword
