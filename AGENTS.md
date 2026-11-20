@@ -31,5 +31,5 @@ Same pattern but lives under `.git_aliases/.helper_functions/<name>/`.
 
 - **README.md is auto-generated** — never edit it directly; run `generate_readme.sh` after changing any `docs.md`
 - **`con_` directory** — Windows can't have folders named `con`, so the `con` alias lives in `con_/`
-- **No submodules** — the repo must work on offline PCs, so vim colours/plugins are vendored. `.vim/colors/` only holds `codedark` (the one scheme in use)
+- **No submodules** — the repo must work on offline PCs, so vim colours/plugins are vendored. `.vim/colors/` only holds `codedark` (the one scheme in use; source commit in its header). `.vim/pack/plugins/start/` holds `itchyny/lightline.vim` @ `255f61d` (only the `deus` theme) and `Raimondi/delimitMate` @ `becbd2d`, with docs' `tags` pre-generated
 - **`.git_aliases/.common.sh`** — sourced by all alias scripts; handles `--docs` flag display and `GIT_PREFIX` directory handling
