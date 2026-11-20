@@ -2,8 +2,8 @@
 	editor = "~/.git_aliases/.git_editor.sh"
 	autocrlf = input
 [user]
-	email = shauntanzongzhi@gmail.com
-	name = EvitanRelta
+	email = tzongzhi@dso.org.sg
+	name = Shaun Tan
 [rebase]
 	autosquash = true
 [alias]
