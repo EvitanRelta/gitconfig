@@ -54,11 +54,13 @@ else
     echo "'.bashrc' already sources '$DIR/.bashrc'"
 fi
 
+# Old init.sh versions symlinked `.vim/colors` into the `vim-colorschemes` submodule, which is now
+# replaced by vendored files. Remove the old symlink and the leftover submodule clone.
 if [[ -L "$DIR/.vim/colors" ]]; then
     rm "$DIR/.vim/colors"
+    git -C "$DIR" checkout -- .vim/colors
 fi
-
-ln -s "$DIR/.vim/vim-colorschemes/colors" "$DIR/.vim/colors"
+rm -rf "$DIR/.vim/vim-colorschemes" "$DIR/.git/modules/.vim/vim-colorschemes"
 
 # Append include statement to .inputrc instead of replacing it
 INPUTRC_LINE="\$include $DIR/.inputrc"
@@ -100,8 +102,4 @@ elif ! grep -qE '\.(bashrc|profile)' ~/.bash_profile; then
 else
     echo "'.bash_profile' already loads .bashrc or .profile; left unchanged"
 fi
-
-# Initialise `vim-colorschemes` submodule.
-cd "$DIR"
-git submodule update --init
 
