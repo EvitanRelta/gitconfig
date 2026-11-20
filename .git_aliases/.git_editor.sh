@@ -1,10 +1,9 @@
 #!/bin/bash
 
 if [[ -n "$WSL_DISTRO_NAME" ]]; then
-    # If in WSL, resolve the "$LOCALAPPDATA" variable and translate WSL paths to
-    # regular Windows paths.
+    # If in WSL, resolve the "$LOCALAPPDATA" variable. Keep the file paths as
+    # Linux paths: VS Code's launcher hands them to Remote-WSL, which expects them.
     LOCALAPPDATA=$(wslpath "$(cmd.exe /c "<nul set /p=%LOCALAPPDATA%" 2>/dev/null)")
-    set -- $(wslpath -w "$@")
     VSCODE_EDITOR_PATH="$LOCALAPPDATA/Programs/Microsoft VS Code/bin/code"
 elif [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then
     # For native Windows (Git Bash/Cygwin)
