@@ -1,22 +1,9 @@
 #!/bin/bash
 
-if [[ -n "$WSL_DISTRO_NAME" ]]; then
-    # If in WSL, resolve the "$LOCALAPPDATA" variable. Keep the file paths as
-    # Linux paths: VS Code's launcher hands them to Remote-WSL, which expects them.
-    LOCALAPPDATA=$(wslpath "$(cmd.exe /c "<nul set /p=%LOCALAPPDATA%" 2>/dev/null)")
-    VSCODE_EDITOR_PATH="$LOCALAPPDATA/Programs/Microsoft VS Code/bin/code"
-elif [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then
-    # For native Windows (Git Bash/Cygwin)
-    VSCODE_EDITOR_PATH="$LOCALAPPDATA/Programs/Microsoft VS Code/bin/code"
-else
-    # For Linux/SSH environments, try to find VSCode in PATH
-    VSCODE_EDITOR_PATH=$(which code 2>/dev/null)
-fi
-
-
-# Use VSCode as editor if it exists, else use Vim.
-if command -v "$VSCODE_EDITOR_PATH" > /dev/null 2>&1; then
-    "$VSCODE_EDITOR_PATH" --wait "$@"
+# Use VS Code when called from its integrated terminal (where `code` opens the
+# file in that same window, including WSL/SSH remotes), else Vim.
+if [[ "$TERM_PROGRAM" == "vscode" ]] && command -v code > /dev/null 2>&1; then
+    code --wait "$@"
 else
     vim "$@"
 fi
